@@ -1,0 +1,38 @@
+{
+  "name": "fluent-play",
+  "version": "0.1.0",
+  "description": "Fluent Play library",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fluentglobe/fluent-play.git"
+  },
+  "readme": "README.md",
+  "license": "none",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henrik Vendelbo",
+  "devDependencies": {
+    "async": "^0.9.0",
+    "chai": "^2.2.0",
+    "expect.js": "^0.3.1",
+    "gulp": "^3.8.11",
+    "gulp-browserify": "^0.5.1",
+    "gulp-sass": "^1.3.3",
+    "gulp-util": "^3.0.4",
+    "jade": "^1.9.2",
+    "js-yaml": "^3.2.7",
+    "lunr": "^0.5.7",
+    "mkdirp": "^0.5.0",
+    "mocha": "^2.2.1",
+    "semver": "^4.3.3",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0",
+    "winston": "^0.9.0",
+    "zombie": "^3.1.1"
+  },
+  "engines": {
+    "steroids": "3.1.9"
+  }
+}
