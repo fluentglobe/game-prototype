@@ -1,4 +1,4 @@
-![Fluent Play!](https://github.com/fluentglobe/fluent-play/raw/master/assets/images/logo.png)
+![Fluent Play!](https://github.com/fluentglobe/fluent-play/raw/master/_demo/assets/images/logo.png)
 
 fluent-play
 ============
