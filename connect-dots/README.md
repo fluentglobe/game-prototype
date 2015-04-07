@@ -22,6 +22,11 @@ Numbers between 0 and 100 must be handled. No number may visually overlap, and d
 
 Numbers must be randomly spread over the screen and the algorithm must be documented with references.
 
+The API must include an EventEmitter2 object to listen for user game completion and progress.
+
+* progress (index=0 .. count-1)
+* complete
+
 ### Settings
 
 When a game is started it is run with parameters.
