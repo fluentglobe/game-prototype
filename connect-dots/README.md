@@ -41,3 +41,8 @@ When a game is started it is run with parameters.
 | order      | 'increasing' / 'decreasing' / 'random'                                |
 | demo       | Boolean, If true the game is run without waiting for the user.        |
 
+### Implementation
+
+This must be implemented as a Phaser state.
+
+
