@@ -7,14 +7,26 @@
     "url": "git@github.com:fluentglobe/fluent-play.git"
   },
   "readme": "README.md",
-  "license": "none",
+  "license": "AGPL",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "lint": "jshint src/**/*.js",
+    "start": "node _demo/server start",
+    "stop": "node _demo/server stop",
+    "build:html": "ncp src/index.html dist/index.html",
+    "build:assets": "ncp assets dist/assets",
+    "prebuild:js": "npm run lint",
+    "build:js": "browserify src/main.js | uglifyjs > dist/main.min.js",
+    "prebuild": "npm run clean",
+    "build": "npm run build:html && npm run build:assets && npm run build:js",
+    "test": "mocha **/*.spec.js",
+    "test2": "./node_modules/.bin/gulp test"
   },
   "author": "Henrik Vendelbo",
   "devDependencies": {
     "chai": "^2.2.0",
+    "chokidar": "^1.2.0",
+    "conventions": "^0.1.0",
     "express": "^4.13.3",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
@@ -36,7 +48,10 @@
     "semver": "^4.3.3",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
-    "socketstream": "0.4.x",
+    "socketstream": "0.5.x",
+    "socketstream-cookie-session": "0.5.x",
+    "sockjs": "~0.3.15",
+    "sockjs-client": "~1.0.3",
     "winston": "^0.9.0",
     "zombie": "^3.1.1"
   },
