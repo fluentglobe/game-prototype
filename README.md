@@ -1,4 +1,6 @@
+<div style="float: left">
 ![Game Prototype](https://github.com/fluentglobe/game-prototype/raw/master/_demo/assets/images/logo.png)
+</div>
 
 Game Prototype
 ==============
@@ -37,10 +39,6 @@ I leave it up to you to decide which facets to prototype and which to leave unde
 
 We currently have three prototypes for you to pick from:
 
-- [Tell the time](tell-time/README)
-- [Connect the dots](connect-dots/README)
-- [Dial phone number](dial-number/README)
-
-<style>
-img[alt="Game Prototype"] { float:left; }
-</style>
+- [Tell the time](tree/master/tell-time)
+- [Connect the dots](tree/master/connect-dots)
+- [Dial phone number](tree/master/dial-number)

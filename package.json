@@ -19,7 +19,7 @@
     "build:js": "browserify src/main.js | uglifyjs > dist/main.min.js",
     "prebuild": "npm run clean",
     "build": "npm run build:html && npm run build:assets && npm run build:js",
-    "test": "mocha **/*.spec.js",
+    "test": "mocha common-game-control/**/*.spec.js connect-dots/**/*.spec.js dial-number/**/*.spec.js tell-time/**/*.spec.js",
     "test2": "./node_modules/.bin/gulp test"
   },
   "author": "Henrik Vendelbo",
