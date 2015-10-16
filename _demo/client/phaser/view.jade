@@ -1,5 +1,14 @@
-html
-	head
-		title phaser
-	body
-		p phaser
+extends /layouts/master
+block title
+  | Welcome
+
+block main
+  a(href="https://github.com/fluentglobe/game-prototype")
+    img(src="/images/logo.png", alt="SocketStream Logo", width=160, height=160)
+
+  h1 Fluent Globe Prototypes
+  p Collection of game prototypes for the language courses
+  p We make prototypes of possible future games in our courses. You are free to play with the source code, but please be aware you may not host them or attempt to otherwise commercialise them. Open Source gives so much, and we have contributed for decades to Open Source. So we keep our prototypes Open Source for others to learn from and comment on.
+  p If you would like to work with us to create learning games you should fork the prototypes and make your own implementation of one of them.
+  | When you are ready make a pull request and make sure we know how to get
+  | in touch with you.

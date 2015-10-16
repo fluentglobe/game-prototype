@@ -11,7 +11,7 @@ conventions.config(settings);
 ss.client.set({
   dirs: {
     'client': '/_demo/client',
-    'static': '/_demo/client/public',
+    'static': '/_demo/public',
     'assets': '/_demo/client/assets'
   },
   'maxAge': 2.6*Math.pow(10,9)
@@ -21,7 +21,7 @@ ss.client.define('phaser-demo', {
   view: './phaser/view.jade',
   locals: settings.vars,
 
-  css:  ['./phaser/entry.scss'],
+  css:  ['./styles/styles.scss', './phaser/entry.scss'],
   code: ['./phaser']
 });
 
@@ -36,7 +36,7 @@ ss.client.formatters.add('sass');
 
 // HTML template formatters
 ss.client.formatters.add('jade',{
-    basedir: path.join(__dirname,'..','client','page')
+    basedir: path.join(ss.root,'_demo','client','page')
 });
 
 ss.ws.transport.use('sockjs');

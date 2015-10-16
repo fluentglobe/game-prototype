@@ -24,6 +24,7 @@
   },
   "author": "Henrik Vendelbo",
   "devDependencies": {
+    "bourbon": "^4.2.5",
     "chai": "^2.2.0",
     "chokidar": "^1.2.0",
     "conventions": "^0.1.0",
