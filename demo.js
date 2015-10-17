@@ -1,5 +1,5 @@
 
-var settings = require('../settings'),
+var settings = require('./settings'),
   conventions = require('conventions'),
   path = require('path'),
   express = require('express'),
@@ -22,11 +22,11 @@ ss.client.define('phaser-demo', {
   locals: settings.vars,
 
   css:  ['./styles/styles.scss', './phaser/entry.scss'],
-  code: ['./phaser']
+  code: ['../node_modules/page/page','./phaser']
 });
 
 // Serve this client on the root URL
-ss.http.route('/', function(req, res){
+ss.http.route('/phaser', function(req, res){
   res.serveClient('phaser-demo');
 });
 
@@ -49,13 +49,13 @@ ss.task('start-server', function(done) {
   //express settings
   app.disable('x-powered-by');
   app.set('port', settings.port);
-  app.set('views', path.join(__dirname, '../client', 'views'));
-  app.locals.basedir = path.join(__dirname, '../client', 'views');
+  app.set('views', path.join(__dirname, './client', 'views'));
+  app.locals.basedir = path.join(__dirname, './client', 'views');
   app.set('view engine', 'jade');
 
 	// require routers
   conventions.routers(__dirname, function(router,name) {
-    var defaultBase = path.dirname(name).substring(1);
+    var defaultBase = path.dirname(name.replace('/_demo/server','')).substring(1);
     app.use(router.baseRoute || defaultBase,router);
   });
 
@@ -69,7 +69,7 @@ ss.task('start-server', function(done) {
     done();
   });
 
-  console.info('Routers:'.grey, conventions.routers().join(' ').replace(/\.\//g,'').replace(/\.router\.js/g,'') || 'None.');
+  ss.api.log.info('Routers:'.grey, conventions.routers().join(' ').replace(/\.\//g,'').replace(/\.router\.js/g,'') || 'None.');
 });
 
 // direct call just starts the server (unless running with gulp)

@@ -1,0 +1,167 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Fluent Globe"
+    },
+    "paths": {
+        "/{course}/myplan/{date}": {
+            "get": {
+                "description": "Gets plan for the user on the day(year-month-day). Not cachable.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "course",
+                        "type": "string",
+                        "required": true,
+                        "description": "locale and version of the course. | E.G. de-ch-1"
+                    },
+                    {
+                        "name": "date",
+                        "type": "date",
+                        "required": true,
+                        "description": "date(year-month-day) of sessions to get E.G. 2016-12-31"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfSessions",
+                            "type": "array",
+                            "items": {
+                                "title": "Session",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "path to resource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{course}/outstanding": {
+            "get": {
+                "description": "Gets list of outstanding sessions until today. Not cachable\n",
+                "parameters": [
+                    {
+                        "name": "course",
+                        "type": "string",
+                        "required": true,
+                        "description": "locale and version of the course. E.G. de-ch-1\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfSessions",
+                            "type": "array",
+                            "items": {
+                                "title": "Session",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "description": "path to resource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{course}/session/{lesson}/{sessionId}": {
+            "get": {
+                "description": "Gets description of an exercise session. Can be cached.",
+                "parameters": [
+                    {
+                        "name": "course",
+                        "type": "string",
+                        "required": true,
+                        "description": "locale and version of the course. E.G. de-ch-1\n"
+                    },
+                    {
+                        "name": "lesson",
+                        "type": "string",
+                        "required": true,
+                        "description": "name of lesson. E.G. tell-time or anecdote"
+                    },
+                    {
+                        "name": "sessionId",
+                        "type": "string",
+                        "required": true,
+                        "description": "Exercise session ID made for the specific lesson and user\non that day. Multiple repititions will have different IDs.\n"
+                    }
+                ],
+                "produces": [
+                    "text/html"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            }
+        },
+        "/{course}/session/{lesson}/{sessionId}/config": {
+            "get": {
+                "description": "Gets configuration for an exercise session. Can be cached.",
+                "parameters": [
+                    {
+                        "name": "course",
+                        "type": "string",
+                        "required": true,
+                        "description": "locale and version of the course. E.G. de-ch-1\n"
+                    },
+                    {
+                        "name": "lesson",
+                        "type": "string",
+                        "required": true,
+                        "description": "name of lesson. E.G. tell-time or anecdote"
+                    },
+                    {
+                        "name": "sessionId",
+                        "type": "string",
+                        "required": true,
+                        "description": "Exercise session ID made for the specific lesson and user\non that day. Multiple repititions will have different IDs.\n"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "SessionDetail",
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "config": {
+                                    "type": "object",
+                                    "description": "Free form object passed to game when configured/started\n"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
