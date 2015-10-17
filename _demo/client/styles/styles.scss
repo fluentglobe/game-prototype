@@ -1,6 +1,6 @@
 @import "bourbon/app/assets/stylesheets/bourbon";
 
-@import "variables";
+@import "styles/variables";
 
 @import "general/fonts";
 
@@ -39,4 +39,12 @@ body {
 
 main {
   margin: 0 2em;
+}
+
+.framed-sidebar {
+  float: right;
+  padding: 10px 20px;
+  border: 1px solid lightblue;
+  border-radius: 4px;
+  margin: 2em 0;
 }
