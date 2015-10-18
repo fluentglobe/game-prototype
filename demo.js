@@ -7,15 +7,7 @@ var settings = require('./settings'),
 
 // conventions can be set up in settings
 conventions.config(settings);
-
-ss.client.set({
-  dirs: {
-    'client': '/_demo/client',
-    'static': '/_demo/public',
-    'assets': '/_demo/client/assets'
-  },
-  'maxAge': 2.6*Math.pow(10,9)
-});
+ss.set('*',settings);
 
 ss.client.define('phaser-demo', {
   view: './phaser/view.jade',
@@ -25,30 +17,20 @@ ss.client.define('phaser-demo', {
   code: ['../node_modules/page/page','./phaser']
 });
 
-// Serve this client on the root URL
-ss.http.route('/phaser', function(req, res){
-  res.serveClient('phaser-demo');
-});
-
-
 // Code Formatters
 ss.client.formatters.add('sass');
 
 // HTML template formatters
-ss.client.formatters.add('jade',{
-    basedir: path.join(ss.root,'_demo','client','page')
-});
+ss.client.formatters.add('jade');
 
 ss.ws.transport.use('sockjs');
-
-exports.settings = settings;
 
 ss.task('start-server', function(done) {
   var app = ss.app = express();
 
   //express settings
   app.disable('x-powered-by');
-  app.set('port', settings.port);
+  app.set('port', settings.server.port);
   app.set('views', path.join(__dirname, './client', 'views'));
   app.locals.basedir = path.join(__dirname, './client', 'views');
   app.set('view engine', 'jade');
@@ -59,12 +41,21 @@ ss.task('start-server', function(done) {
     app.use(router.baseRoute || defaultBase,router);
   });
 
+  // Serve this client on the root URL
+  // ss.http.route('/phaser', function(req, res){
+  //   res.serveClient('phaser-demo');
+  // });
+
+  app.get('/', function(req,res) {
+      res.serveClient('phaser-demo');
+  });
+
   app.use('/',ss.http.middleware);
   // app.use(ss.http.session.middleware);
   // app.use(ss.http.cached.middleware);
 
   // Start SocketStream
-  var httpServer = app.listen(settings.port, function() {
+  var httpServer = app.listen(settings.server.port, function() {
     ss.stream(httpServer);
     done();
   });
