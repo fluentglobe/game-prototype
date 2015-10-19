@@ -3,6 +3,23 @@ info:
   version: 1.0.0
   title: 'Fluent Globe'
 paths:
+  /types/{type}/buckets/{bucket}/keys/{key}:
+    get:
+      description: |
+        Gets a resource directly from Storage.
+      produces:
+      - image/jpeg
+      - application/json
+      - image/png
+      - text/javascript
+      - text/css
+      parameters:
+      - name: type
+      - name: bucket
+      - name: key
+      responses:
+        '200':
+          description: Successful response      
   /{course}/myplan/{date}:
     get:
       description: |

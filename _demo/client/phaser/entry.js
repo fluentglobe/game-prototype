@@ -1,7 +1,10 @@
 'use strict';
 
-page.on('/abc', function() {
-  alert('abc');
+page('/',function(s) {
+    console.log('/',s);
+});
+page('/abc', function(s) {
+  console.log('abc',s);
 });
 
 var BootState    = require('./states/boot')

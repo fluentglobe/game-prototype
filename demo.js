@@ -14,7 +14,8 @@ ss.client.define('phaser-demo', {
   locals: settings.vars,
 
   css:  ['./styles/styles.scss', './phaser/entry.scss'],
-  code: ['../node_modules/page/page','./phaser']
+  code: ['../node_modules/page/page','./phaser'],
+  libs: ['../node_modules/page/page','../node_modules/phaser/dist/phaser']
 });
 
 // Code Formatters
