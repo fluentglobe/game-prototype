@@ -36,7 +36,7 @@ ss.task('start-server', function(done) {
   app.set('view engine', 'jade');
 
 	// require routers
-  conventions.routers(__dirname, function(router,name) {
+  conventions.routers(__dirname+'/_demo/server', function(router,name) {
     var defaultBase = path.dirname(name.replace('/_demo/server','')).substring(1);
     app.use(router.baseRoute || defaultBase,router);
   });

@@ -1,0 +1,4 @@
+- game: connect-dots
+  min: 0
+  max: 10
+- game: intermission

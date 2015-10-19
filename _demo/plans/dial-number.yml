@@ -1,0 +1,9 @@
+- game: dial-number
+  numbers:
+  - 012345
+  - 1234567
+  - 044556677
+- game: intermission
+  text: /text/easy-numbers  
+- game: dial-number
+  number: +41791234567
