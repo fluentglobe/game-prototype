@@ -1,13 +1,17 @@
 'use strict';
 
 Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), function(el) {
-  var url = el.getAttribute('href').replace("javascript:page('",'').replace("')",'');
-  page(url, function(context) {
+  var name = el.getAttribute('name'),
+      url = '/types/student/buckets/'+name+'/keys/plan.json';
+      console.log(name);
+  page('/'+name, function(context) {
+      System.import(url).then(function(json) {
+          console.log(json);
+        var data = JSON.parse(json);
+        console.log(data);
+      });
   });
-  console.log(url);
-  System.import('.'+url).then(function(data) {
-    alert('data');
-  });
+  // console.log(url);
 });
 
 //System.load( html for each game in plan)

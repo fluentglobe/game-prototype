@@ -29,4 +29,4 @@ block main
   ul
     for plan in plans
       li
-        a(href="javascript:page('#{plan.url}')",rel="game")= plan.name
+        a(href="javascript:page('#{plan.url}')",name="#{plan.key}",rel="game")= plan.name
