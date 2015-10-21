@@ -86,9 +86,11 @@ Make a scaler that will manage this.
 
 Settings:
 
-- ‘mode’ demo/free/normal
-- ‘handsAnimationMs' animation time moving hands to target time from 12:00
-- ‘repeatSpeakSec’ time after which the time speak is replayed
-- ‘freeMoveMs’ time to move the hands in free play before time is spoken
-- ’times’ list of time objects { style: String, time: Date }
-- ‘delegate’ delegation object that receives events
+| name             | description                                               |
+|------------------|-----------------------------------------------------------|
+| mode             | demo/free/normal                                          |
+| handsAnimation   | animation time moving hands to target time from 12:00     |
+| repeatSpeak      | time(sec) after which the time speak is replayed               |
+| freeMove         | time(sec) to move the hands in free play before time is spoken |
+| times            | list of time objects { style: String, time: Date }        |
+| delegate         | delegation object that receives events                    |

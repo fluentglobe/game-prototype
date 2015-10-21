@@ -34,11 +34,12 @@ ss.task('start-server', function(done) {
   app.set('port', settings.server.port);
   app.set('views', path.join(__dirname, './client', 'views'));
   app.locals.basedir = path.join(__dirname, './client', 'views');
+  app.locals.plans = settings.plans;
   app.set('view engine', 'jade');
 
 	// require routers
-  conventions.routers(__dirname+'/_demo/server', function(router,name) {
-    var defaultBase = path.dirname(name.replace('/_demo/server','')).substring(1);
+  conventions.routers('server', function(router,name) {
+    var defaultBase = path.dirname(name).substring(1);
     app.use(router.baseRoute || defaultBase,router);
   });
 

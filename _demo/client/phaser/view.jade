@@ -1,4 +1,4 @@
-extends /page/layouts/master
+extends /page/layouts/default
 block title
   | Welcome
 
@@ -29,4 +29,4 @@ block main
   ul
     for plan in plans
       li
-        p= file
+        a(href="javascript:page('#{plan.url}')",rel="game")= plan.name

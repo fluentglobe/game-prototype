@@ -1,6 +1,6 @@
 ## Connect the Dots numbers game
 
-Numbers are visually spread across the space within the HTML game element. A typical game (from=0, to=10, count=11, order='increasing') works like the well known paper variant. All numbers are rendered initially so a line can be drawn from one to the next without colliding 
+Numbers are visually spread across the space within the HTML game element. A typical game (from=0, to=10, count=11, order='increasing') works like the well known paper variant. All numbers are rendered initially so a line can be drawn from one to the next without colliding
 with another number.
 
 The order of numbers is increasing by default, but can also be decreasing or random.
@@ -9,11 +9,14 @@ Once rendered the game presents the first number by playing the sound/speak for 
 
 After the delay the user must tap or move to the next number.
 
+With the showNumber flag the word for the digit is shown while spoken and hidden when tapped.
+
+In free mode no number is spoken initially, but when a digit is hit it is spoken.
 
 ### Technically
 
 The game is initialised in an element. Pixi is used to draw and manipulate the game area.
-The game element is left hidden until it starts. The start function supplies the parameters 
+The game element is left hidden until it starts. The start function supplies the parameters
 for the game run.
 
 A single sound file is passed to the game when creating the game. The pronunciation of numbers is in a single file loaded by the game. Each number speak is on a 2 second boundary. So the number Zero is at 0 seconds, number One is at 2 seconds, number 100 is at 202 seconds.
@@ -36,13 +39,11 @@ When a game is started it is run with parameters.
 | from       | Minimum number picked    |
 | to         | Maximum number picked    |
 | count      | The amount of number displayed                                        |
-| delay      | Number of seconds between each number (1 - 10)                        |
+| delay      | Number of seconds between each number (0.5 - 10)                        |
 | showNumber | Boolean, If true the number spoken is also shown in top right corner. |
 | order      | 'increasing' / 'decreasing' / 'random'                                |
-| demo       | Boolean, If true the game is run without waiting for the user.        |
+| mode       | demo/free/normal (demo will run without waiting for user)             |
 
 ### Implementation
 
 This must be implemented as a Phaser state.
-
-

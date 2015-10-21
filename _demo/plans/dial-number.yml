@@ -1,9 +1,54 @@
-- game: dial-number
-  numbers:
-  - 012345
-  - 1234567
-  - 044556677
-- game: intermission
-  text: /text/easy-numbers  
-- game: dial-number
-  number: +41791234567
+name: Dial a Number
+url: /dial-a-number
+plan:
+  - game: dial-number
+    from: 1
+    to: 1
+    prefix: 04
+    count: 10
+    delay: 0.7
+    timeout: 10
+    showNumber: true
+    mode: demo
+  - game: intermission
+    text: /text/easy-numbers
+  - game: dial-number
+    from: 1
+    to: 1
+    prefix: 04
+    count: 10
+    delay: 0.7
+    timeout: 10
+    showNumber: true
+  - game: dial-number
+    from: 1
+    to: 1
+    specific: 012345
+    delay: 0.7
+    timeout: 10
+  - game: dial-number
+    from: 1
+    to: 1
+    specific: 044556677
+    delay: 0.7
+    timeout: 10
+  - game: dial-number
+    from: 1
+    to: 1
+    prefix: 04
+    count: 10
+    delay: 0.7
+    timeout: 10
+  - game: dial-number
+    from: 1
+    to: 2
+    prefix: 079
+    count: 10
+    delay: 0.7
+    timeout: 20
+  - game: dial-number
+    from: 1
+    to: 1
+    specific: +41791234567
+    delay: 0.7
+    timeout: 10

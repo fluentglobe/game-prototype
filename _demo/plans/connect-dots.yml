@@ -1,4 +1,33 @@
-- game: connect-dots
-  min: 0
-  max: 10
-- game: intermission
+name: Connect the Dots
+url: /connect-the-dots
+plan:
+  - game: connect-dots
+    from: 0
+    to: 10
+    delay: 0.7
+    order: increasing
+    count: 11
+    showNumber: true
+    mode: demo
+  - game: intermission
+  - game: connect-dots
+    from: 0
+    to: 10
+    delay: 0.7
+    order: increasing
+    count: 11
+    showNumber: true
+  - game: connect-dots
+    from: 0
+    to: 10
+    delay: 0.7
+    order: increasing
+    count: 11
+    showNumber: true
+  - game: connect-dots
+    from: 0
+    to: 10
+    delay: 0.7
+    order: decreasing
+    count: 11
+    showNumber: true

@@ -1,0 +1,20 @@
+{
+  "name": "connect-dots-game",
+  "version": "1.0.0",
+  "description": "Connect the Dots game prototype",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/fluentglobe/game-prototype"
+  },
+  "keywords": [
+    "game",
+    "prototype",
+    "fluentglobe"
+  ],
+  "author": "Henrik Vendelbo",
+  "license": "AGPL-3.0"
+}

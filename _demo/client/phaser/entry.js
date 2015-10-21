@@ -1,12 +1,18 @@
 'use strict';
 
-page('/',function(s) {
-    console.log('/',s);
-});
-page('/abc', function(s) {
-  console.log('abc',s);
+Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), function(el) {
+  var url = el.getAttribute('href').replace("javascript:page('",'').replace("')",'');
+  page(url, function(context) {
+  });
+  console.log(url);
+  System.import('.'+url).then(function(data) {
+    alert('data');
+  });
 });
 
+//System.load( html for each game in plan)
+
+/*
 var BootState    = require('./states/boot')
   , PreloadState = require('./states/preload')
   , MainMenu     = require('./states/main')
@@ -33,3 +39,4 @@ game.state.add('game', ConnectDotsState);
 // injection of new states by the generator.
 
 game.state.start('boot');
+*/

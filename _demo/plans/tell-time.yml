@@ -1,0 +1,16 @@
+name: Tell the Time
+url: /tell-the-time
+plan:
+  - game: tell-time
+    mode: demo
+  - game: tell-time
+    mode: normal
+    repeatSpeak: 5
+    handsAnimation: 0.5
+  - game: tell-time
+    mode: normal
+    repeatSpeak: 5
+    handsAnimation: 0.5
+  - game: tell-time
+    mode: free
+    freeMove: 0.5
