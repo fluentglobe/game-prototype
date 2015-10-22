@@ -51,6 +51,11 @@ ss.task('start-server', function(done) {
   app.get('/', function(req,res) {
       res.serveClient('phaser-demo');
   });
+  settings.vars.plans.forEach(function(plan) {
+      app.get('/'+plan.key, function(req,res) {
+          res.serveClient('phaser-demo');
+      });
+  });
 
   app.use('/',ss.http.middleware);
   // app.use(ss.http.session.middleware);
