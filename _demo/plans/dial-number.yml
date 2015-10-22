@@ -1,5 +1,4 @@
 name: Dial a Number
-url: /dial-a-number
 plan:
   - game: dial-number
     from: 1

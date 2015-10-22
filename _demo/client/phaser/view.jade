@@ -4,9 +4,8 @@ block title
 
 block main
   ul.framed-sidebar
-    li: a(href="#/connect-dots") Connect the Dots
-    li: a(href="#/dial-number") Dial a Number
-    li: a(href="#/tell-time") Tell the Time
+    for plan in plans
+      li: a(href="javascript:page('/#{plan.key}')",name="#{plan.key}",rel="game")= plan.name
 
   a(href="https://github.com/fluentglobe/game-prototype")
     img(src="/images/logo.png", alt="SocketStream Logo", width=160, height=160)
@@ -25,8 +24,3 @@ block main
     | Internet connect, the plan is loaded ahead of time. Game assets are bundled and
     | sent to the browser ahead of time.
   p For development the assets are loaded on the fly to allow seeing code changes.
-
-  ul
-    for plan in plans
-      li
-        a(href="javascript:page('#{plan.url}')",name="#{plan.key}",rel="game")= plan.name

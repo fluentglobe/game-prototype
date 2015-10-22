@@ -14,7 +14,10 @@ html.no-js(lang="en")
   body
     main
       block main
-    script(src="/assets/system.js")  
+    script(src="/assets/es6-module-loader-dev.js")
+    script(src="/assets/browser.js")
+    script System.transpiler = 'babel';
+    //- script(src="/assets/system.js")  
     script(src="/assets/page.js")
     script(src="/assets/phaser.js")  
     != SocketStream

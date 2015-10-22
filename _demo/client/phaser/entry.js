@@ -1,5 +1,18 @@
 'use strict';
 
+exports.fetch = function(load, fetch) {
+    return new Promise(function(resolve, reject) {
+      var cssFile = load.address;
+
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = cssFile;
+      link.onload = resolve;
+
+      document.head.appendChild(link);
+    });
+  }
+
 Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), function(el) {
   var name = el.getAttribute('name'),
       url = '/types/student/buckets/'+name+'/keys/plan.json';

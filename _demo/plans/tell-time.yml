@@ -1,5 +1,4 @@
 name: Tell the Time
-url: /tell-the-time
 plan:
   - game: tell-time
     mode: demo

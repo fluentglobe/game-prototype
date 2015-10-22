@@ -24,10 +24,13 @@
   },
   "author": "Henrik Vendelbo",
   "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
     "bourbon": "^4.2.5",
     "chai": "^2.2.0",
     "chokidar": "^1.2.0",
     "conventions": "~0.3.0",
+    "es6-module-loader": "^0.17.8",
     "express": "^4.13.3",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",

@@ -1,5 +1,4 @@
 name: Connect the Dots
-url: /connect-the-dots
 plan:
   - game: connect-dots
     from: 0
