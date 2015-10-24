@@ -33,5 +33,6 @@ exports.pkg = require('./package.json');
 exports.vars.plans = fs.readdirSync(path.join(__dirname,'_demo/plans')).map(function(name) {
     var plan = YAML.load(path.join(__dirname,'_demo/plans',name));
     plan.key = name.replace('.yml','');
+    // plan.gameRoot = 
     return plan;
 });
