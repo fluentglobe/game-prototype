@@ -1,6 +1,6 @@
-name: Dial a Number
+title: Dial a Number
 plan:
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 1
     prefix: 04
@@ -9,7 +9,7 @@ plan:
     timeout: 10
     showNumber: true
     mode: demo
-  - game: intermission
+  - game: intermission-video
     text: /text/easy-numbers
   - game: dial-number
     from: 1
@@ -19,33 +19,33 @@ plan:
     delay: 0.7
     timeout: 10
     showNumber: true
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 1
     specific: 012345
     delay: 0.7
     timeout: 10
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 1
     specific: 044556677
     delay: 0.7
     timeout: 10
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 1
     prefix: 04
     count: 10
     delay: 0.7
     timeout: 10
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 2
     prefix: 079
     count: 10
     delay: 0.7
     timeout: 20
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 1
     specific: +41791234567

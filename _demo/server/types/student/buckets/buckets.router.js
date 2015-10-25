@@ -24,7 +24,8 @@ settings.vars.plans.forEach(function(plan) {
   router.get('/'+plan.key+'/keys/index.js', function(req,res) {
     res.status(200).type('text/javascript').send(planTemplate({
         day: day,
-        plan:plan
+        plan: plan.plan,
+        options: { title: plan.title }
     }));
   });
   // router.get('/'+plan.key+'/index.js', function(req,res) {

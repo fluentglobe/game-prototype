@@ -1,5 +1,4 @@
 {% autoescape false %}
-'use strict';
-
-var plan = {{ plan|json }};
-planTheDay({{ day }},plan);
+Fluent.planTheDay({{ day }},{{ plan|json }}, {{ options|json }}).then(function(plan) {
+  plan.start(0);
+});

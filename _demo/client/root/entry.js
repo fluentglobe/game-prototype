@@ -25,9 +25,28 @@ Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), functio
   // console.log(url);
 });
 
-window.planTheDay = function(day, plan) {
-  alert(day);
+window.Fluent = {};
+window.Fluent.planTheDay = function(day, plan, options) {
+  return new Promise(function(resolve,reject) {
+      var api = plan;
+      api.day = day;
+
+      var gamePromises = plan.forEach(function(game) {
+        var url = '/types/student/buckets/'+game.game+'/keys/index.js';
+        return System.import(url);
+      });
+
+
+      api.start = function(index) {
+        alert('starting '+index);
+      };
+      alert(day);
+
+      //TODO when gamePromises resolved resolve promise
+      resolve(plan);
+  });
 };
+
 
 //System.load( html for each game in plan)
 
