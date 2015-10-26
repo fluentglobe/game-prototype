@@ -4,15 +4,18 @@ var express = require('express'),
 
 var router = module.exports = express.Router();
 
-//var staticFiles = require('serve-static')('node_modules/swagger-ui/dist');
-
-//app.use(staticFiles);
 router.get('/swagger.json',function(req,res) {
-    // console.warn('req',req.url);
     send(req, req.url, {
         root: path.join(__dirname)
     }).pipe(res);
 });
+
+router.get('/config.js',function(req,res) {
+    send(req, req.url, {
+        root: path.join(path.join(__dirname,'../..'))
+    }).pipe(res);
+});
+
 // router.use(function(req,res) {
 //     // console.warn('req',req.url);
 //     send(req, req.url, {

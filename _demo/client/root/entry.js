@@ -1,5 +1,7 @@
 'use strict';
 
+//TODO if not root exec the page path
+
 exports.fetch = function(load, fetch) {
     return new Promise(function(resolve, reject) {
       var cssFile = load.address;
@@ -15,9 +17,9 @@ exports.fetch = function(load, fetch) {
 
 Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), function(el) {
   var name = el.getAttribute('name'),
-      url = '/types/student/buckets/'+name+'/keys/index.js';
-      console.log(name);
-  page('/'+name, function(context) {
+      url = '/v1/student/plan/'+name+'/index.js';
+  console.log(name);
+  page('/plan/'+name, function(context) {
       System.import(url).then(function(x) {
           console.log(x);
       });
@@ -32,7 +34,7 @@ window.Fluent.planTheDay = function(day, plan, options) {
       api.day = day;
 
       var gamePromises = plan.forEach(function(game) {
-        var url = '/types/student/buckets/'+game.game+'/keys/index.js';
+        var url = '/v1/student/app/'+game.game+'/index.js';
         return System.import(url);
       });
 

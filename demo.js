@@ -24,6 +24,16 @@ ss.client.define('phaser', {
   code: ['./phaser']
 });
 
+/*
+ss.client.define('demo','jspm-bundler', {
+  view: './root/view.jade',
+  locals: settings.vars,
+  systemjs: '../jspm_packages/system',
+  configjs: '../config.js',
+  code: ['../node_modules/page/page','./root']
+});
+*/
+
 // Code Formatters
 ss.client.formatters.add('sass');
 
@@ -58,14 +68,14 @@ ss.task('start-server', function(done) {
       res.serveClient('demo');
   });
   settings.vars.plans.forEach(function(plan) {
-      app.get('/'+plan.key, function(req,res) {
+      app.get('/plan/'+plan.key, function(req,res) {
           res.serveClient('demo');
       });
   });
 
-  app.use('/',ss.http.middleware);
-  // app.use(ss.http.session.middleware);
-  // app.use(ss.http.cached.middleware);
+  app.use('/jspm_packages', require('./jspm_packages/index.router'));
+  app.use(ss.http.session.middleware);
+  app.use(ss.http.cached.middleware);
 
   // Start SocketStream
   var httpServer = app.listen(settings.server.port, function() {

@@ -3,10 +3,10 @@ info:
   version: 1.0.0
   title: 'Fluent Globe'
 paths:
-  /types/{type}/buckets/{bucket}/keys/{key}:
+  /v1/student/plan/{plan}/{resource}:
     get:
       description: |
-        Gets a resource directly from Storage.
+        Gets a resource directly from Storage for the plan.
       produces:
       - image/jpeg
       - application/json
@@ -14,12 +14,34 @@ paths:
       - text/javascript
       - text/css
       parameters:
-      - name: type
-      - name: bucket
-      - name: key
+      - name: plan
+        description: In prototype this is an ID in the /_demo/plans directory. In production |
+          this is a unique ID for the user.
+      - name: resource
+        description: file path for the resource
       responses:
         '200':
-          description: Successful response      
+          description: Successful response
+  /v1/student/app/{name}/{version}/{resource}:
+    get:
+      description: |
+        Gets a resource directly from Storage for a game or intermission
+      produces:
+      - image/jpeg
+      - application/json
+      - image/png
+      - text/javascript
+      - text/css
+      parameters:
+      - name: name
+        description: Name of game or intermission as in package.json
+      - name: version
+        description: Version as in package.json
+      - name: resource
+        description: file path for the resource
+      responses:
+        '200':
+          description: Successful response
   /{course}/myplan/{date}:
     get:
       description: |

@@ -11,7 +11,7 @@ plan:
     mode: demo
   - game: intermission-video
     text: /text/easy-numbers
-  - game: dial-number
+  - game: dial-number-game
     from: 1
     to: 1
     prefix: 04
