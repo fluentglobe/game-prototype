@@ -42,8 +42,8 @@ ss.client.formatters.add('jade');
 
 ss.ws.transport.use('sockjs');
 
-ss.task('start-server', function(done) {
-  var app = ss.app = express();
+ss.task('start-server', ['load-api'], function(done) {
+  var app = ss.http.middleware = express();
 
   //express settings
   app.disable('x-powered-by');
@@ -73,15 +73,11 @@ ss.task('start-server', function(done) {
       });
   });
 
-  app.use('/jspm_packages', require('./jspm_packages/index.router'));
   app.use(ss.http.session.middleware);
   app.use(ss.http.cached.middleware);
 
   // Start SocketStream
-  var httpServer = app.listen(settings.server.port, function() {
-    ss.stream(httpServer);
-    done();
-  });
+  ss.ws.listen(settings.server.port, done);
 
   ss.api.log.info('Routers:'.grey, conventions.routers().join(' ').replace(/\.\//g,'').replace(/\.router\.js/g,'') || 'None.');
 });
