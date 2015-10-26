@@ -36,3 +36,9 @@ exports.vars.plans = fs.readdirSync(path.join(__dirname,'_demo/plans')).map(func
     // plan.gameRoot =
     return plan;
 });
+
+exports.games = [
+    { key: 'connect-dots-game' },
+    { key: 'dial-number-game' },
+    { key: 'tell-time-game' }
+];

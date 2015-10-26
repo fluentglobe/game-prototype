@@ -42,8 +42,11 @@ window.Fluent.planTheDay = function(day, plan, options) {
       };
       alert(day);
 
+      Promise.all(gamePromises).then(function() {
+        alert('all loaded');
+        resolve(plan);
+      });
       //TODO when gamePromises resolved resolve promise
-      resolve(plan);
   });
 };
 

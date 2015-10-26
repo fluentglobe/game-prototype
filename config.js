@@ -12,6 +12,11 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
+  bundles: {
+    "build.js": [
+      "dial-number-game/index.js"
+    ]
+  },
 
   map: {
     "babel": "npm:babel-core@5.8.25",
