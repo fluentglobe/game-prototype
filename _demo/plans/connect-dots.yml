@@ -1,6 +1,6 @@
-name: Connect the Dots
+title: Connect the Dots
 plan:
-  - game: connect-dots
+  - game: connect-dots-game
     from: 0
     to: 10
     delay: 0.7
@@ -8,22 +8,22 @@ plan:
     count: 11
     showNumber: true
     mode: demo
-  - game: intermission
-  - game: connect-dots
+  - game: intermission-video
+  - game: connect-dots-game
     from: 0
     to: 10
     delay: 0.7
     order: increasing
     count: 11
     showNumber: true
-  - game: connect-dots
+  - game: connect-dots-game
     from: 0
     to: 10
     delay: 0.7
     order: increasing
     count: 11
     showNumber: true
-  - game: connect-dots
+  - game: connect-dots-game
     from: 0
     to: 10
     delay: 0.7

@@ -1,15 +1,15 @@
-name: Tell the Time
+title: Tell the Time
 plan:
-  - game: tell-time
+  - game: tell-time-game
     mode: demo
-  - game: tell-time
+  - game: tell-time-game
     mode: normal
     repeatSpeak: 5
     handsAnimation: 0.5
-  - game: tell-time
+  - game: tell-time-game
     mode: normal
     repeatSpeak: 5
     handsAnimation: 0.5
-  - game: tell-time
+  - game: tell-time-game
     mode: free
     freeMove: 0.5

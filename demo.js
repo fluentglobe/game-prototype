@@ -9,13 +9,19 @@ var settings = require('./settings'),
 conventions.config(settings);
 ss.set('*',settings);
 
-ss.client.define('phaser-demo', {
-  view: './phaser/view.jade',
+ss.client.define('demo', {
+  view: './root/view.jade',
   locals: settings.vars,
 
-  css:  ['./styles/styles.scss', './phaser/entry.scss'],
-  code: ['../node_modules/page/page','./phaser'],
+  css:  ['./styles/styles.scss', './root/entry.scss'],
+  code: ['../node_modules/page/page','./root'],
   libs: ['../node_modules/page/page','../node_modules/phaser/dist/phaser']
+});
+
+ss.client.define('phaser', {
+  view: './phaser/view.jade',
+  locals: settings.vars,
+  code: ['./phaser']
 });
 
 // Code Formatters
@@ -49,11 +55,11 @@ ss.task('start-server', ['load-api'], function(done) {
   // });
 
   app.get('/', function(req,res) {
-      res.serveClient('phaser-demo');
+      res.serveClient('demo');
   });
   settings.vars.plans.forEach(function(plan) {
       app.get('/'+plan.key, function(req,res) {
-          res.serveClient('phaser-demo');
+          res.serveClient('demo');
       });
   });
 
