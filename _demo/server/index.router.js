@@ -4,11 +4,11 @@ var express = require('express'),
 
 var router = module.exports = express.Router();
 
-router.get('/swagger.json',function(req,res) {
-    send(req, req.url, {
-        root: path.join(__dirname)
-    }).pipe(res);
-});
+// router.get('/v1/swagger.json',function(req,res) {
+//     send(req, req.url, {
+//         root: path.join(__dirname)
+//     }).pipe(res);
+// });
 
 router.get('/config.js',function(req,res) {
     send(req, req.url, {
