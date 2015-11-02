@@ -6,6 +6,6 @@ var router = module.exports = express.Router();
 
 router.use(function(req,res) {
     send(req, req.url, {
-        root: path.join(__dirname)
+        root: path.join(__dirname,'../../../jspm_packages')
     }).pipe(res);
 });
