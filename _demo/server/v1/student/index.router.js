@@ -41,4 +41,11 @@ settings.games.forEach(function(app) {
       // console.log(req.url, path.join(ss.root,app.key,'index.js'));
         send(req, path.join(ss.root,'..',app.key,'index.js'),options).pipe(res);
     });
+
+    // other files at dev-time
+    router.get('/app/'+app.key, function(req,res) {
+      //TODO hmm
+        console.log(req.url);
+        send(req, path.join(ss.root,'..',app.key,req.url),options).pipe(res);
+    });
 });

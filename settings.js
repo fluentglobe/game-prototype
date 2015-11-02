@@ -38,6 +38,7 @@ exports.vars.plans = fs.readdirSync(path.join(__dirname,'_demo/plans')).map(func
 });
 
 exports.games = [
+    { key: 'intermission-video'},
     { key: 'connect-dots-game' },
     { key: 'dial-number-game' },
     { key: 'tell-time-game' }
