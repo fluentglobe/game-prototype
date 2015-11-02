@@ -2,12 +2,43 @@
 var settings = require('./settings'),
   conventions = require('conventions'),
   path = require('path'),
-  express = require('express'),
+  express = require('socketstream/express'),
+  app = express(),
   ss = require('socketstream');
 
 // conventions can be set up in settings
 conventions.config(settings);
 ss.set('*',settings);
+
+//express settings
+app.locals.basedir = path.join(__dirname, './client', 'views');
+app.locals.plans = settings.plans;
+app.set('view engine', 'jade');
+
+// require routers
+conventions.routers('server', function(router,name) {
+  var defaultBase = path.dirname(name).substring(1);
+  app.use(router.baseRoute || defaultBase,router || '/');
+});
+
+// Serve this client on the root URL
+// ss.http.route('/phaser', function(req, res){
+//   res.serveClient('phaser-demo');
+// });
+
+app.get('/', function(req,res) {
+    res.serveClient('demo');
+});
+settings.vars.plans.forEach(function(plan) {
+    app.get('/plan/'+plan.key, function(req,res) {
+        res.serveClient('demo');
+    });
+});
+
+app.use(ss.http.session.middleware);
+app.use(ss.http.cached.middleware);
+
+ss.api.log.info('Routers:'.grey, conventions.routers().join(' ').replace(/\.\//g,'').replace(/\.router\.js/g,'') || 'None.');
 
 ss.client.define('demo', {
   view: './root/view.jade',
@@ -41,46 +72,6 @@ ss.client.formatters.add('sass');
 ss.client.formatters.add('jade');
 
 ss.ws.transport.use('sockjs');
-
-ss.task('start-server', ['load-api'], function(done) {
-  var app = ss.http.middleware = express();
-
-  //express settings
-  app.disable('x-powered-by');
-  app.set('port', settings.server.port);
-  app.set('views', path.join(__dirname, './client', 'views'));
-  app.locals.basedir = path.join(__dirname, './client', 'views');
-  app.locals.plans = settings.plans;
-  app.set('view engine', 'jade');
-
-	// require routers
-  conventions.routers('server', function(router,name) {
-    var defaultBase = path.dirname(name).substring(1);
-    app.use(router.baseRoute || defaultBase,router);
-  });
-
-  // Serve this client on the root URL
-  // ss.http.route('/phaser', function(req, res){
-  //   res.serveClient('phaser-demo');
-  // });
-
-  app.get('/', function(req,res) {
-      res.serveClient('demo');
-  });
-  settings.vars.plans.forEach(function(plan) {
-      app.get('/plan/'+plan.key, function(req,res) {
-          res.serveClient('demo');
-      });
-  });
-
-  app.use(ss.http.session.middleware);
-  app.use(ss.http.cached.middleware);
-
-  // Start SocketStream
-  ss.ws.listen(settings.server.port, done);
-
-  ss.api.log.info('Routers:'.grey, conventions.routers().join(' ').replace(/\.\//g,'').replace(/\.router\.js/g,'') || 'None.');
-});
 
 // direct call just starts the server (unless running with gulp)
 ss.start();

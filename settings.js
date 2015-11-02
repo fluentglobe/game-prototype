@@ -18,7 +18,7 @@ exports.client = {
   'maxAge': 2.6*Math.pow(10,9)
 };
 
-exports.server = {
+exports.http = {
     port: 3000
 };
 

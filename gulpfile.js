@@ -9,28 +9,20 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     flatten = require('gulp-flatten');
 
-// use the gulp orchestrator
-(function(ss) {
-  ss.tasks.use(gulp);
-  ss.start = function() {}; // may go into ss.useGulp(gulp) with line above
+var ss = require('socketstream/gulp');
+require('./demo');
 
-  // set specific start-server and other defaults
-  require('./app');
-  ss.tasks.defaults();
-
-  ss.client.set({
-    serveDebugInfo: true
-  });
-
-})(require('socketstream'));
+ss.client.set({
+  serveDebugInfo: true
+});
 
 
 gulp.task('default', ['pack-all']);
-gulp.task('live', ['load-socketstream','live-assets','live-reload','serve','serve-debug']);
+gulp.task('live', ['live-assets','live-reload','serve','serve-debug']);
 
 gulp.task('serve-debug', function() {
   var ss = require('socketstream'),
-      app = ss.app;
+      app = ss.http.middleware;
 
   // Showing stack errors
   app.set('showStackError', true);
