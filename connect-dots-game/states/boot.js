@@ -23,4 +23,4 @@ Boot.prototype = {
     }
 };
 
-module.exports = Boot;
+export {Boot};

@@ -1,6 +1,7 @@
 var express = require('express'),
     ss = require('socketstream'),
     settings = require('../../../../settings'),
+    debug = require('debug')('game'),
     swig = require('swig'),
     send = require('send'),
     path = require('path');
@@ -38,14 +39,11 @@ settings.vars.plans.forEach(function(plan) {
 settings.games.forEach(function(app) {
     var options = {};
     router.get('/app/'+app.key+'/index.js', function(req,res) {
-      // console.log(req.url, path.join(ss.root,app.key,'index.js'));
         send(req, path.join(ss.root,'..',app.key,'index.js'),options).pipe(res);
     });
 
     // other files at dev-time
-    router.get('/app/'+app.key, function(req,res) {
-      //TODO hmm
-        console.log(req.url);
-        send(req, path.join(ss.root,'..',app.key,req.url),options).pipe(res);
+    router.use('/app/'+app.key+'/', function(req,res) {
+        send(req, path.join(ss.root,'..',app.key,req.url.replace('/app/','')),options).pipe(res);
     });
 });

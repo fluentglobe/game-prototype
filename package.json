@@ -11,7 +11,7 @@
   "private": true,
   "scripts": {
     "lint": "jshint src/**/*.js",
-    "start": "node demo",
+    "start": "env DEBUG=game node demo",
     "stop": "./node_modules/.bin/gulp stop",
     "build:html": "ncp src/index.html dist/index.html",
     "build:assets": "ncp assets dist/assets",

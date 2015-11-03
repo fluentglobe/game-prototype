@@ -1,7 +1,5 @@
 'use strict';
 
-//TODO if not root exec the page path
-
 //sample API function
 exports.fetch = function(load, fetch) {
     return new Promise(function(resolve, reject) {
@@ -16,17 +14,28 @@ exports.fetch = function(load, fetch) {
     });
   }
 
+var gameName;
+
 Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), function(el) {
   var name = el.getAttribute('name'),
       url = '/v1/student/plan/'+name+'/index.js';
 
   page('/plan/'+name, function(context) {
+      gameName = name;
       System.import(url);
   });
 });
 
-window.Fluent = {};
-window.Fluent.planTheDay = function(day, plan, options) {
+// if not root exec the page path
+if (location.pathname !== '/') {
+  gameName = location.pathname;
+  var url = '/v1/student'+gameName+'/index.js';
+  System.import(url);
+}
+
+var Fluent = window.Fluent = {};
+
+Fluent.planTheDay = function(day, plan, options) {
   return new Promise(function(resolve,reject) {
       var api = plan;
       api.day = day;
@@ -34,6 +43,12 @@ window.Fluent.planTheDay = function(day, plan, options) {
       var gamePromises = plan.forEach(function(game) {
         var url = '/v1/student/app/'+game.game+'/index.js';
         return System.import(url).then(function(app) {
+
+          // phaser support
+          if (app.state && app.state.game === app) {
+            adjustPhaserGame(app, game.game, '/v1/student/app/'+game.game);
+          }
+
           console.log('loaded game part',app);
         });
       });
@@ -50,3 +65,12 @@ window.Fluent.planTheDay = function(day, plan, options) {
       //TODO when gamePromises resolved resolve promise
   });
 };
+
+function adjustPhaserGame(game,name,url) {
+  game.init = function() {
+    //TODO override width, height, renderMode and target element
+    game.load.baseURL = url;
+  };
+}
+    // var game = new Phaser.Game(width, height, renderMode, gameName, options);
+    // game.load.baseURL = '/v1/student/plan/'+gameName+'/';
