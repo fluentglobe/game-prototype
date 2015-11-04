@@ -45,8 +45,8 @@ Fluent.planTheDay = function(day, plan, options) {
         return System.import(url).then(function(app) {
 
           // phaser support
-          if (app.state && app.state.game === app) {
-            adjustPhaserGame(app, game.game, '/v1/student/app/'+game.game);
+          if (app.phaser) {
+            adjustPhaserGame(app.phaser, game.game, '/v1/student/app/'+game.game);
           }
 
           console.log('loaded game part',app);

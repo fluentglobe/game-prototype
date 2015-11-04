@@ -1,6 +1,6 @@
 'use strict';
 
-function Boot() {
+export function Boot() {
     // Empty
 }
 
@@ -22,5 +22,3 @@ Boot.prototype = {
         this.game.state.start('preload');
     }
 };
-
-export {Boot};
