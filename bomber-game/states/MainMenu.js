@@ -24,7 +24,7 @@ MainMenu.prototype = {
 	    var t = this.add.bitmapText(0, 64, 'rollingThunder', 'BOMBER', 32);
 	    t.x = 256 - (t.textWidth / 2);
 
-        this.heights = Phaser.Utils.shuffle(this.heights);
+        this.heights = Phaser.ArrayUtils.shuffle(this.heights);
 
         for (var i = 0; i < this.heights.length; i++)
         {

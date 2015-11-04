@@ -51,7 +51,7 @@ Game.prototype = {
 
         this.bomb.checkWorldBounds = true;
 
-        this.heights = Phaser.Utils.shuffle(this.heights);
+        this.heights = Phaser.ArrayUtils.shuffle(this.heights);
 
         for (var i = 0; i < this.heights.length; i++)
         {
