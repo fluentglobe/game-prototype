@@ -1,4 +1,3 @@
-'use strict';
 
 //sample API function
 exports.fetch = function(load, fetch) {
@@ -43,13 +42,16 @@ Fluent.planTheDay = function(day, plan, options) {
       var gamePromises = plan.forEach(function(game) {
         var url = '/v1/student/app/'+game.game+'/index.js';
         return System.import(url).then(function(app) {
+            // could also have a set of Game Apps
+            if (!app.loaded) {
+                // phaser support
+                if (app.phaser) {
+                    adjustPhaserGame(app.phaser, game.game, '/v1/student/app/'+game.game+'/');
+                }
 
-          // phaser support
-          if (app.phaser) {
-            adjustPhaserGame(app.phaser, game.game, '/v1/student/app/'+game.game);
-          }
-
-          console.log('loaded game part',app);
+                console.log('loaded game part',app);
+                app.loaded = true;
+            }
         });
       });
 
@@ -72,26 +74,28 @@ function adjustPhaserGame(states, name, url) {
 
     var game = new Phaser.Game(512, 384, Phaser.CANVAS, states.name || 'game');
 
+    function wrapped_init() {
+      game.load.baseURL = url;
+      if (this.old_init) {
+          this.old_init.apply(this,arguments);
+      }
+    }
+
     for(var n in states) {
         var state = states[n];
-        var old_init = init;
+        var old_init;
 
-        state.init = function() {
-          game.load.baseURL = url;
-          if (old_init) {
-              old_init.apply(this,arguments);
-          }
-        };
-
-        if (typeof state === 'function') {
+        if (typeof state === 'function' && !state.prototype.old_init) {
+            state.prototype.old_init = state.prototype.init;
+            state.prototype.init = wrapped_init;
             game.state.add(n, state);
         }
     }
+
+    //TODO do in api.start
     if (states.start) {
         console.info('Phaser game:', name, states.name);
         game.state.start(states.start);
     }
 
 }
-    // var game = new Phaser.Game(width, height, renderMode, gameName, options);
-    // game.load.baseURL = '/v1/student/plan/'+gameName+'/';
