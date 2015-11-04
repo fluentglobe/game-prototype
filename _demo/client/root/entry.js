@@ -66,11 +66,31 @@ Fluent.planTheDay = function(day, plan, options) {
   });
 };
 
-function adjustPhaserGame(game,name,url) {
-  game.init = function() {
+function adjustPhaserGame(states, name, url) {
+
     //TODO override width, height, renderMode and target element
-    game.load.baseURL = url;
-  };
+
+    var game = new Phaser.Game(512, 384, Phaser.CANVAS, states.name || 'game');
+
+    for(var n in states) {
+        var state = states[n];
+        var old_init = init;
+
+        state.init = function() {
+          game.load.baseURL = url;
+          if (old_init) {
+              old_init.apply(this,arguments);
+          }
+        };
+
+        if (typeof state === 'function') {
+            game.state.add(n, state);
+        }
+    }
+    if (states.start) {
+        game.state.start(states.start);
+    }
+
 }
     // var game = new Phaser.Game(width, height, renderMode, gameName, options);
     // game.load.baseURL = '/v1/student/plan/'+gameName+'/';

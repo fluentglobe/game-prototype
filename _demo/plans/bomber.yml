@@ -1,0 +1,8 @@
+title: Phaser Bomber Game
+plan:
+  - game: bomber-game
+    mode: demo
+  - game: bomber-game
+    mode: normal
+    repeatSpeak: 5
+    handsAnimation: 0.5

@@ -41,5 +41,6 @@ exports.games = [
     { key: 'intermission-video'},
     { key: 'connect-dots-game' },
     { key: 'dial-number-game' },
-    { key: 'tell-time-game' }
+    { key: 'tell-time-game' },
+    { key: 'bomber-game' }
 ];
