@@ -1,3 +1,5 @@
+import {City} from './City';
+
 export function MainMenu(game) {
 
 	this.music = null;
@@ -26,7 +28,7 @@ MainMenu.prototype = {
 
         for (var i = 0; i < this.heights.length; i++)
         {
-            this.cities.push(new Bomber.City(this.game, 48 + i * 16, this.heights[i]));
+            this.cities.push(new City(this.game, 48 + i * 16, this.heights[i]));
         }
 
         this.input.onDown.addOnce(this.startGame, this);

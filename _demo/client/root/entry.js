@@ -88,6 +88,7 @@ function adjustPhaserGame(states, name, url) {
         }
     }
     if (states.start) {
+        console.info('Phaser game:', name, states.name);
         game.state.start(states.start);
     }
 

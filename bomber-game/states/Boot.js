@@ -50,7 +50,7 @@ Boot.prototype = {
 
     enterIncorrectOrientation: function () {
 
-        Bomber.orientated = false;
+        //TODO Bomber.orientated = false;
 
         document.getElementById('orientation').style.display = 'block';
 
@@ -58,7 +58,7 @@ Boot.prototype = {
 
     leaveIncorrectOrientation: function () {
 
-        Bomber.orientated = true;
+        //TODO Bomber.orientated = true;
 
         document.getElementById('orientation').style.display = 'none';
 

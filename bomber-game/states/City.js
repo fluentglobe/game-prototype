@@ -21,7 +21,7 @@ export function City(game, x, height) {
 }
 
 City.prototype = Object.create(Phaser.Group.prototype);
-City.prototype.constructor = Bomber.City;
+City.prototype.constructor = City;
 
 City.prototype.build = function (x) {
 

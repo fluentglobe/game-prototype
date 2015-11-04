@@ -1,3 +1,5 @@
+import {City} from './City';
+
 export function Game(game) {
 
     this.land;
@@ -53,7 +55,7 @@ Game.prototype = {
 
         for (var i = 0; i < this.heights.length; i++)
         {
-            this.cities.push(new Bomber.City(this.game, 48 + i * 16, this.heights[i]));
+            this.cities.push(new City(this.game, 48 + i * 16, this.heights[i]));
         }
 
         this.emitter = this.add.emitter(0, 0, 500);
