@@ -1,9 +1,11 @@
 'use strict';
 
-import {BootState} from './states/boot';
-import {PreloadState} from './states/preload';
+import {Boot} from './states/boot';
+import {Preload} from './states/preload';
 
-var options = { preload: preload
+var options = {
+  init: init,
+  preload: preload
     //, create: create
 };
 
@@ -14,11 +16,15 @@ var width      = 320
 
 export var phaser = new Phaser.Game(width, height, renderMode, gameName, options);
 
-phaser.state.add('boot',    BootState);
-phaser.state.add('preload', PreloadState);
+phaser.state.add('boot',    Boot);
+phaser.state.add('preload', Preload);
 // game.state.add('game', ConnectDotsState);
 
 phaser.state.start('boot');
+
+function init() {
+    phaser.init();
+}
 
 function preload() {
     phaser.forceSingleUpdate = true;
