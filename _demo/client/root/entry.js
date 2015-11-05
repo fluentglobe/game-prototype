@@ -32,6 +32,8 @@ if (location.pathname !== '/') {
   System.import(url);
 }
 
+var main = document.querySelector('main');
+
 var Fluent = window.Fluent = {};
 
 Fluent.planTheDay = function(day, plan, options) {
@@ -44,6 +46,11 @@ Fluent.planTheDay = function(day, plan, options) {
         return System.import(url).then(function(app) {
             // could also have a set of Game Apps
             if (!app.loaded) {
+                var wrapper = document.createElement('div');
+                wrapper.id = game.game;
+                wrapper.className = 'game-window';
+                main.appendChild(wrapper);
+
                 // phaser support
                 if (app.phaser) {
                     adjustPhaserGame(app.phaser, game.game, '/v1/student/app/'+game.game+'/');
@@ -72,7 +79,7 @@ function adjustPhaserGame(states, name, url) {
 
     //TODO override width, height, renderMode and target element
 
-    var game = new Phaser.Game(640, 960, Phaser.CANVAS, states.name || 'game');
+    var game = new Phaser.Game(640, 960, Phaser.CANVAS, name);
 
     function wrapped_init() {
       game.load.baseURL = url;
