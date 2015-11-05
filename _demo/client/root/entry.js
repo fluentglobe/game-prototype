@@ -72,7 +72,7 @@ function adjustPhaserGame(states, name, url) {
 
     //TODO override width, height, renderMode and target element
 
-    var game = new Phaser.Game(512, 384, Phaser.CANVAS, states.name || 'game');
+    var game = new Phaser.Game(640, 960, Phaser.CANVAS, states.name || 'game');
 
     function wrapped_init() {
       game.load.baseURL = url;
@@ -90,6 +90,9 @@ function adjustPhaserGame(states, name, url) {
             state.prototype.init = wrapped_init;
             game.state.add(n, state);
         }
+
+        // mark ready when Boot state completed
+        //TODO this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     }
 
     //TODO do in api.start

@@ -49,12 +49,6 @@ ss.client.define('demo', {
   libs: ['../node_modules/page/page','../node_modules/phaser/dist/phaser']
 });
 
-ss.client.define('phaser', {
-  view: './phaser/view.jade',
-  locals: settings.vars,
-  code: ['./phaser']
-});
-
 /*
 ss.client.define('demo','jspm-bundler', {
   view: './root/view.jade',
