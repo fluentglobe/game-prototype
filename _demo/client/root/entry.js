@@ -37,34 +37,42 @@ var main = document.querySelector('main');
 var Fluent = window.Fluent = {};
 
 Fluent.planTheDay = function(day, plan, options) {
-  return new Promise(function(resolve,reject) {
-      var api = plan;
-      api.day = day;
+    var games = {};
+    return new Promise(function(resolve,reject) {
+        var api = plan;
+        api.day = day;
 
-      var gamePromises = plan.forEach(function(game) {
-        var url = '/v1/student/app/'+game.game+'/index.js';
-        return System.import(url).then(function(app) {
-            // could also have a set of Game Apps
-            if (!app.loaded) {
-                var wrapper = document.createElement('div');
-                wrapper.id = game.game;
-                wrapper.className = 'game-window';
-                main.appendChild(wrapper);
+        var gamePromises = plan.forEach(function(game) {
+            if (games[game.game]) {
+                game.phaser = games[game.game].phaser;
 
-                // phaser support
-                if (app.phaser) {
-                    adjustPhaserGame(app.phaser, game.game, '/v1/student/app/'+game.game+'/');
-                }
+            } else {
+                var url = '/v1/student/app/'+game.game+'/index.js';
+                games[game.game] = true; // to avoid multiple imports
+                return System.import(url).then(function(module) {
+                    module.url = url;
+                    games[game.game] = module; // allows lookup
 
-                console.log('loaded game part',app);
-                app.loaded = true;
+                    var wrapper = document.createElement('div');
+                    wrapper.id = game.game;
+                    wrapper.className = 'game-window';
+                    main.appendChild(wrapper);
+
+                    // phaser support
+                    if (module.phaser) {
+                        game.phaser = module.phaser;
+                        adjustPhaserGame(module.phaser, game.game, '/v1/student/app/'+game.game+'/');
+                    }
+
+                    console.log('loaded game part',module);
+                });
             }
-        });
       });
 
-
+      //TODO module.phaser.options.main is name of main to switch to when running
       api.start = function(index) {
         alert('starting '+index);
+        //TODO start the game start state
       };
 
       Promise.all(gamePromises).then(function() {
@@ -79,33 +87,37 @@ function adjustPhaserGame(states, name, url) {
 
     //TODO override width, height, renderMode and target element
 
-    var game = new Phaser.Game(640, 960, Phaser.CANVAS, name);
+    var game = new Phaser.Game(400, 960, Phaser.CANVAS, name);
 
     function wrapped_init() {
+        console.log('init',name,url);
       game.load.baseURL = url;
-      if (this.old_init) {
+      if (typeof this.old_init === 'function') {
           this.old_init.apply(this,arguments);
       }
     }
 
+    function on_ready() {
+        console.log('loaded boot state'); //TODO act on this
+    }
+
     for(var n in states) {
         var state = states[n];
-        var old_init;
 
-        if (typeof state === 'function' && !state.prototype.old_init) {
-            state.prototype.old_init = state.prototype.init;
-            state.prototype.init = wrapped_init;
-            game.state.add(n, state);
+        if (typeof state === 'function') {
+            if (!state.prototype.old_init) {
+                state.prototype.old_init = state.prototype.init || true;
+                state.prototype.init = wrapped_init;
+            }
+            var n0 = n.charAt(0);
+            if (n0.toUpperCase() === n0 && n0.toLowerCase() !== n0) {
+                game.state.add(n, state);
+            }
         }
-
-        // mark ready when Boot state completed
-        //TODO this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     }
 
-    //TODO do in api.start
-    if (states.start) {
-        console.info('Phaser game:', name, states.name);
-        game.state.start(states.start);
+    if (states.options && states.options.boot) {
+        game.state.start(states.options.boot);
+        states[states.options.boot].load.onLoadComplete.addOnce(on_ready);
     }
-
 }
