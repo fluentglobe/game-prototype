@@ -1,11 +1,27 @@
 export function Boot(game) {
+
+	this.background = null;
+	this.preloadBar = null;
+
+	this.ready = false;
 };
 
 Boot.prototype = {
 
     preload: function () {
+        // No visible preloading
+        // this.load.image('preloaderBar', 'images/preload.png');
+        // this.preloadBar = this.add.sprite(0, 100, 'preloaderBar');
+		// this.load.setPreloadSprite(this.preloadBar);
 
-        this.load.image('preloaderBar', 'images/preload.png');
+		this.load.image('plane', 'images/plane.png');
+		this.load.image('bomb', 'images/bomb.png');
+		this.load.image('land', 'images/land.png');
+		this.load.image('sky', 'images/sky.png');
+		this.load.image('photonstorm', 'images/photonstorm.png');
+		this.load.spritesheet('particles', 'images/particles.png', 2, 2);
+		this.load.spritesheet('city', 'images/city.png', 16, 16);
+		this.load.bitmapFont('rollingThunder', 'images/rolling-thunder.png', 'images/rolling-thunder.xml');
 
     },
 
@@ -41,9 +57,21 @@ Boot.prototype = {
             // this.scale.setScreenSize(true);
         }
 
-        this.state.start('Preloader');
+        // this.preloadBar.cropEnabled = false;
+
+		this.state.start('MainMenu');
 
     },
+
+    update: function () {
+
+		// if (this.cache.isSoundDecoded('titleMusic') && this.ready == false)
+		// {
+			// this.ready = true;
+			// this.state.start('MainMenu');
+		// }
+
+	},
 
     gameResized: function (width, height) {
     },

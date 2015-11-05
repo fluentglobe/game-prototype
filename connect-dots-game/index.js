@@ -1,13 +1,15 @@
 'use strict';
 
 import {Boot} from './states/Boot';
-import {Ready} from './states/Ready';
+import {Game} from './states/Game';
 
 export var phaser = {};
 
-phaser.name = 'connect-dots';
-phaser.start = 'Boot';
-phaser.main = 'Game';
+phaser.options = {
+    name: 'connect-dots',
+    boot: 'Boot',
+    main: 'Game'
+};
 
 phaser.Boot = Boot;
-phaser.Ready = Ready;
+phaser.Game = Game;
