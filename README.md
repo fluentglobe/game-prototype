@@ -1,4 +1,4 @@
-![Game Prototype](https://github.com/fluentglobe/game-prototype/raw/master/_demo/assets/images/logo.png)
+![Game Prototype](https://github.com/fluentglobe/game-prototype/raw/master/_demo/public/images/logo.png)
 
 Game Prototype
 ==============
