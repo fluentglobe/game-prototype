@@ -1,1 +1,96 @@
 /* entry */
+main {
+  min-height: 1000px;
+}
+.framed-sidebar {
+  padding-right: .5em;
+  li {
+    padding: 10px 20px;
+    border: 1px solid lightblue;
+    border-radius: 4px;
+    margin: 2em 0;
+  }
+}
+
+.game-windows {
+  position: relative;
+
+  @media (min-width: 401px) {
+    margin-left: .5em;
+    margin-top: 1em;
+  }
+
+  @media(min-width: 801px) {
+    .game-windows { max-width: 401px;}
+  }
+  @media(min-width: 901px) {
+    .game-windows { max-width: 501px;}
+  }
+  @media(min-width: 1001px) {
+    .game-windows { max-width: 601px;}
+  }
+  @media(min-width: 1101px) {
+    .game-windows { max-width: 701px;}
+  }
+  @media(min-width: 1201px) {
+    .game-windows { max-width: 801px;}
+  }
+}
+.game-window {
+    float: left;
+    overflow: hidden;
+    width: 320px;
+    height: 560px;
+    max-height: 768px;
+
+    @media (min-width: 360px) {
+      width: 360px;
+      height: 640px;
+    }
+
+    @media (min-width: 400px) {
+      width: 400px;
+      height: 720px;
+    }
+
+    @media (min-width: 769px) {
+        width: 400px;
+        height: 768px;
+        border: 1px solid #eee;
+        box-shadow: 2px 2px 10px #ccc;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 600px) {
+
+  .game-windows {
+    width: 320px;
+  }
+  .framed-sidebar {
+    position: absolute;
+    right: 0; left: 330px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 800px) {
+  .game-windows {
+    max-width: 400px;
+  }
+  main {
+    padding-right: 200px;
+  }
+  .framed-sidebar {
+    position: absolute;
+    right: 0; left: 410px;
+  }
+}
+
+@media (min-width: 801px) {
+  main {
+    padding-right: 400px;
+  }
+  .framed-sidebar {
+    position: absolute;
+    right: 0; width: 400px;
+  }
+}

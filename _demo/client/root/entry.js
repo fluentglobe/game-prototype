@@ -32,7 +32,7 @@ if (location.pathname !== '/') {
   System.import(url);
 }
 
-var main = document.querySelector('main');
+var windows = document.querySelector('.game-windows');
 
 var Fluent = window.Fluent = {};
 
@@ -56,7 +56,7 @@ Fluent.planTheDay = function(day, plan, options) {
                     var wrapper = document.createElement('div');
                     wrapper.id = game.game;
                     wrapper.className = 'game-window';
-                    main.appendChild(wrapper);
+                    windows.appendChild(wrapper);
 
                     // phaser support
                     if (module.phaser) {
