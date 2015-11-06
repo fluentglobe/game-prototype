@@ -4,11 +4,9 @@ var express = require('express'),
 
 var router = module.exports = express.Router();
 
-// router.get('/v1/swagger.json',function(req,res) {
-//     send(req, req.url, {
-//         root: path.join(__dirname)
-//     }).pipe(res);
-// });
+router.get('/', function(req,res) {
+    res.serveClient('demo');
+});
 
 router.get('/config.js',function(req,res) {
     send(req, req.url, {
@@ -16,6 +14,11 @@ router.get('/config.js',function(req,res) {
     }).pipe(res);
 });
 
+// router.get('/v1/swagger.json',function(req,res) {
+//     send(req, req.url, {
+//         root: path.join(__dirname)
+//     }).pipe(res);
+// });
 // router.use(function(req,res) {
 //     // console.warn('req',req.url);
 //     send(req, req.url, {

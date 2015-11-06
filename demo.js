@@ -10,6 +10,15 @@ var settings = require('./settings'),
 conventions.config(settings);
 ss.set('*',settings);
 
+ss.client.define('demo', {
+  view: './root/view.jade',
+  locals: settings.vars,
+
+  css:  ['./styles/styles.scss', './root/entry.scss'],
+  code: ['../node_modules/page/page','./root'],
+  libs: ['../node_modules/page/page','../node_modules/phaser/dist/phaser']
+});
+
 //express settings
 app.locals.basedir = path.join(__dirname, './client', 'views');
 app.locals.plans = settings.plans;
@@ -21,14 +30,6 @@ conventions.routers('server', function(router,name) {
   app.use(router.baseRoute || defaultBase,router || '/');
 });
 
-// Serve this client on the root URL
-// ss.http.route('/phaser', function(req, res){
-//   res.serveClient('phaser-demo');
-// });
-
-app.get('/', function(req,res) {
-    res.serveClient('demo');
-});
 settings.vars.plans.forEach(function(plan) {
     app.get('/plan/'+plan.key, function(req,res) {
         res.serveClient('demo');
@@ -39,15 +40,6 @@ app.use(ss.http.session.middleware);
 app.use(ss.http.cached.middleware);
 
 ss.api.log.info('Routers:'.grey, conventions.routers().join(' ').replace(/\.\//g,'').replace(/\.router\.js/g,'') || 'None.');
-
-ss.client.define('demo', {
-  view: './root/view.jade',
-  locals: settings.vars,
-
-  css:  ['./styles/styles.scss', './root/entry.scss'],
-  code: ['../node_modules/page/page','./root'],
-  libs: ['../node_modules/page/page','../node_modules/phaser/dist/phaser']
-});
 
 /*
 ss.client.define('demo','jspm-bundler', {
