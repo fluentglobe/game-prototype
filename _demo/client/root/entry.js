@@ -38,109 +38,116 @@ var Fluent = window.Fluent = {};
 
 Fluent.planTheDay = function(day, plan, options) {
     var games = {};
-    return new Promise(function(resolve,reject) {
-        var api = plan;
-        api.day = day;
+    var api = plan;
+    api.day = day;
+    var gamePromises = [];
 
-        var gamePromises = plan.map(function(game) {
-            if (games[game.game]) {
-                game.phaser = games[game.game].phaser;
+    function importGames(config,index) {
+        var entry = plan[index] = { config:config };
 
-            } else {
-                var url = '/v1/student/app/'+game.game+'/index.js';
-                games[game.game] = true; // to avoid multiple imports
-                return System.import(url).then(function(module) {
-                    module.url = url;
-                    games[game.game] = module; // allows lookup
+        if (games[config.game]) {
+            entry.phaser = games[config.game].phaser;
 
-                    var wrapper = document.createElement('div');
-                    wrapper.id = game.game;
-                    wrapper.className = 'game-window';
-                    windows.appendChild(wrapper);
+        } else {
+            var url = '/v1/student/app/'+config.game+'/index.js';
+            games[config.game] = true; // to avoid multiple imports
+            var loadPromise = System.import(url).then(function(module) {
+                module.url = url;
+                games[config.game] = module; // allows lookup
 
-                    // phaser support
-                    if (module.phaser) {
-                        game.phaser = module.phaser;
-                        game.phaserGame = adjustPhaserGame(module.phaser, game.game, '/v1/student/app/'+game.game+'/');
-                    }
+                var wrapper = document.createElement('div');
+                wrapper.id = config.game;
+                wrapper.className = 'game-window';
+                windows.appendChild(wrapper);
 
-                    console.log('loaded game part',module);
-                });
-            }
-      });
+                // phaser support (plan.booted is a promise for phaser game booted)
+                if (module.phaser) {
+                    entry.phaser = module.phaser;
+                    plan.booted = adjustPhaserGame(module.phaser, config.game, '/v1/student/app/'+config.game+'/').then(function(phaserGame) {
+                        entry.phaserGame = phaserGame;
+                    });
+                    //gamePromises.push(plan.booted); // not sure if this will come in time, might need second level
+                    return plan.booted; // should chain promise
+                }
 
-      console.log(gamePromises);
+                console.log('loaded game part',module);
+            });
+            gamePromises.push(loadPromise);
+        }
+    }
 
-      api.start = function(index) {
-          var entry = plan[index];
+    plan.forEach(importGames);
 
-          //module.phaser.options.main is name of main to switch to when running
-          if (entry.phaser) {
-              var mainStateName = entry.phaser.options.main,
-                  clearGame = true, clearCache = false,
-                  config = {};
-              console.info('starting game',entry);
-              entry.phaserGame.start(mainStateName, clearGame, clearCache, config)
-          }
+    console.log(gamePromises);
 
-        alert('starting '+index);
-      };
+    api.start = function(index) {
+      var entry = plan[index];
 
-      Promise.all(gamePromises).then(function() {
-        console.log('all games in plan loaded.');
+      //module.phaser.options.main is name of main to switch to when running
+      if (entry.phaser) {
+          var mainStateName = entry.phaser.options.main,
+              clearGame = true, clearCache = false;
+          console.info('starting game',entry);
+          entry.phaserGame.start(mainStateName, clearGame, clearCache, entry.config)
+      }
+
+      alert('starting '+index);
+    };
+
+    return Promise.all(gamePromises).then(function() {
+        console.info('all games in plan loaded.');
         resolve(plan);
     },function(err) {
         console.error('Rejected:', err);
     });
-      //TODO when gamePromises resolved resolve promise
-  });
 };
 
+/**
+@returns Promise of a Phaser Game that has been booted
+*/
 function adjustPhaserGame(states, name, url) {
+    return new Promise(function(resolve,reject) {
+        //TODO override width, height, renderMode and target element
 
-    //TODO override width, height, renderMode and target element
+        var game = new Phaser.Game(400, 960, Phaser.CANVAS, name);
 
-    var game = new Phaser.Game(400, 960, Phaser.CANVAS, name);
-
-    function wrapped_init() {
-        // console.log('init',name,url);
-        game.load.baseURL = url;
-        if (typeof this.old_init === 'function') {
-            this.old_init.apply(this,arguments);
-        }
-    }
-
-    function wrapped_create() {
-        states.options.created = true;
-        if (typeof this.old_create === 'function') {
-            this.old_create.apply(this,arguments);
-        }
-    }
-
-    for(var n in states) {
-        var state = states[n];
-
-        if (typeof state === 'function') {
-            if (!state.prototype.old_init) {
-                state.prototype.old_init = state.prototype.init || true;
-                state.prototype.init = wrapped_init;
-            }
-            if (!state.prototype.old_create) {
-                state.prototype.old_create = state.prototype.create || true;
-                state.prototype.create = wrapped_create;
-            }
-            var n0 = n.charAt(0);
-            if (n0.toUpperCase() === n0 && n0.toLowerCase() !== n0) {
-                game.state.add(n, state);
+        function wrapped_init() {
+            // console.log('init',name,url);
+            game.load.baseURL = url;
+            if (typeof this.old_init === 'function') {
+                this.old_init.apply(this,arguments);
             }
         }
-    }
 
-    if (states.options && states.options.boot) {
-        game.state.start(states.options.boot);
-        console.log(game.load)
-        // game.load.onLoadComplete.addOnce(on_booted);
-    }
+        function wrapped_create() {
+            states.options.created = true;
+            resolve(game);
+            if (typeof this.old_create === 'function') {
+                this.old_create.apply(this,arguments);
+            }
+        }
 
-    return game;
+        for(var n in states) {
+            var state = states[n];
+
+            if (typeof state === 'function') {
+                if (!state.prototype.old_init) {
+                    state.prototype.old_init = state.prototype.init || true;
+                    state.prototype.init = wrapped_init;
+                }
+                if (!state.prototype.old_create) {
+                    state.prototype.old_create = state.prototype.create || true;
+                    state.prototype.create = wrapped_create;
+                }
+                var n0 = n.charAt(0);
+                if (n0.toUpperCase() === n0 && n0.toLowerCase() !== n0) {
+                    game.state.add(n, state);
+                }
+            }
+        }
+
+        if (states.options && states.options.boot) {
+            game.state.start(states.options.boot);
+        }
+    });
 }
