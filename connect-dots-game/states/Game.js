@@ -7,6 +7,10 @@ function Game() {
 
 Game.prototype = {
 
+    init: function(config) {
+        console.log('started Connect the Dots with',config);
+    },
+
     preload: function () {
     },
 

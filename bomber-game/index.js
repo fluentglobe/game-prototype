@@ -10,7 +10,7 @@ export var phaser = {
 phaser.options = {
     name: 'bomber',
     boot: 'Boot',
-    main: 'Game',
+    main: 'MainMenu',
 
     /* Here we've just got some global level vars that persist regardless of State swaps */
     score: 0,

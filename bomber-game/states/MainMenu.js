@@ -1,16 +1,18 @@
 import {City} from './City';
 
 export function MainMenu(game) {
-
 	this.music = null;
 	this.playButton = null;
 
     this.cities = [];
     this.heights = [ 2, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10, 12, 14, 14 ];
-
 }
 
 MainMenu.prototype = {
+
+	init: function(config) {
+        console.log('started Bomber with',config);
+    },
 
 	create: function () {
 
