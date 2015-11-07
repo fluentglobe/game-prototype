@@ -87,7 +87,7 @@ Fluent.planTheDay = function(day, plan, options) {
       if (entry.phaser) {
           var mainStateName = entry.phaser.options.main,
               clearGame = true, clearCache = false;
-          console.info('starting game',entry);
+          console.info('starting game',entry.config);
           entry.phaserGame.start(mainStateName, clearGame, clearCache, entry.config)
       }
 
@@ -96,7 +96,7 @@ Fluent.planTheDay = function(day, plan, options) {
 
     return Promise.all(gamePromises).then(function() {
         console.info('all games in plan loaded.');
-        resolve(plan);
+        return plan;
     },function(err) {
         console.error('Rejected:', err);
     });
