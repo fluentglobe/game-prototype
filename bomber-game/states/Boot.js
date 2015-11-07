@@ -39,7 +39,6 @@ Boot.prototype = {
             this.scale.maxHeight = 384;
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically = true;
-            // this.scale.setScreenSize(true);
         }
         else
         {
@@ -54,13 +53,7 @@ Boot.prototype = {
             this.scale.setResizeCallback(this.gameResized, this);
             this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
             this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
-            // this.scale.setScreenSize(true);
         }
-
-        // this.preloadBar.cropEnabled = false;
-
-		this.state.start('MainMenu');
-
     },
 
     update: function () {

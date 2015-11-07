@@ -11,7 +11,7 @@ export function MainMenu(game) {
 MainMenu.prototype = {
 
 	init: function(config) {
-        console.log('started Bomber with',config);
+        console.info('Started Bomber (Main Menu) with',config);
     },
 
 	create: function () {

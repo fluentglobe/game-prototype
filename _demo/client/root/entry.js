@@ -70,15 +70,13 @@ Fluent.planTheDay = function(day, plan, options) {
                     return plan.booted; // should chain promise
                 }
 
-                console.log('loaded game part',module);
+                console.log('Unknow type of game (not Phaser)',module);
             });
             gamePromises.push(loadPromise);
         }
     }
 
     plan.forEach(importGames);
-
-    console.log(gamePromises);
 
     api.start = function(index) {
       var entry = plan[index];
@@ -87,11 +85,8 @@ Fluent.planTheDay = function(day, plan, options) {
       if (entry.phaser) {
           var mainStateName = entry.phaser.options.main,
               clearGame = true, clearCache = false;
-          console.info('starting game',entry.config);
-          entry.phaserGame.start(mainStateName, clearGame, clearCache, entry.config)
+          entry.phaserGame.state.start(mainStateName, clearGame, clearCache, entry.config)
       }
-
-      alert('starting '+index);
     };
 
     return Promise.all(gamePromises).then(function() {
@@ -107,12 +102,11 @@ Fluent.planTheDay = function(day, plan, options) {
 */
 function adjustPhaserGame(states, name, url) {
     return new Promise(function(resolve,reject) {
-        //TODO override width, height, renderMode and target element
+        //TODO override width, height, renderMode
 
         var game = new Phaser.Game(400, 960, Phaser.CANVAS, name);
 
         function wrapped_init() {
-            // console.log('init',name,url);
             game.load.baseURL = url;
             if (typeof this.old_init === 'function') {
                 this.old_init.apply(this,arguments);
