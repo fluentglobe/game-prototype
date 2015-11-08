@@ -1,7 +1,7 @@
 'use strict';
 
 import {Boot} from './states/Boot';
-import {MainMenu} from './states/MainMenu';
+import {Ready} from './states/Ready';
 import {Game} from './states/Game';
 
 export var phaser = {
@@ -10,7 +10,7 @@ export var phaser = {
 phaser.options = {
     name: 'bomber',
     boot: 'Boot',
-    main: 'MainMenu',
+    main: 'Game',
 
     /* Here we've just got some global level vars that persist regardless of State swaps */
     score: 0,
@@ -23,5 +23,5 @@ phaser.options = {
 };
 
 phaser.Boot = Boot;
-phaser.MainMenu = MainMenu;
+phaser.Ready = Ready;
 phaser.Game = Game;

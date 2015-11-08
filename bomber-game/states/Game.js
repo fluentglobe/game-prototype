@@ -146,7 +146,7 @@ Game.prototype = {
 
         this.scoreText.text = 'score:' + this.score;
 
-        if (this.gameLost || this.gameWon)
+        if (this.gameLost || this.gameWon || this.game.paused)
         {
             return;
         }
@@ -221,12 +221,12 @@ Game.prototype = {
         t.x = 256 - (t.textWidth / 2);
 
         this.input.onDown.add(this.quitGame, this);
-
+        this.game.state.start('Ready');
     },
 
 	quitGame: function () {
 
-		this.state.start('MainMenu');
+		this.state.start('Ready');
 
 	}
 

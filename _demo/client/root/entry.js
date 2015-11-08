@@ -36,16 +36,41 @@ var windows = document.querySelector('.game-windows');
 
 var Fluent = window.Fluent = {};
 
+var currentPlan,
+    currentIndex,
+    currentGame;
+
+Fluent.startGame = function() {
+  if (currentGame) {
+    //module.phaser.options.main is name of main to switch to when running
+    if (currentGame.phaser) {
+        var mainStateName = currentGame.phaser.options.main || 'Main',
+            clearGame = true, clearCache = false;
+        currentGame.phaserGame.state.start(mainStateName, clearGame, clearCache, currentGame.config)
+    } else {
+      console.info("No game to start. The type isn't Phaser")
+    }
+  }
+};
+
+//TODO when game is completed go to Done/Ready state
+
+Fluent.pauseGame = function() {
+  if (currentGame) {
+    currentGame.paused = !currentGame.paused;
+  }
+};
+
 Fluent.planTheDay = function(day, plan, options) {
     var games = {};
-    var api = plan;
-    api.day = day;
+    plan.day = day;
     var gamePromises = [];
 
     function importGames(config,index) {
         var entry = plan[index] = { config:config };
 
         if (games[config.game]) {
+            //TODO assign when import resolved, undefined at this point
             entry.phaser = games[config.game].phaser;
 
         } else {
@@ -63,7 +88,7 @@ Fluent.planTheDay = function(day, plan, options) {
                 // phaser support (plan.booted is a promise for phaser game booted)
                 if (module.phaser) {
                     entry.phaser = module.phaser;
-                    plan.booted = adjustPhaserGame(module.phaser, config.game, '/v1/student/app/'+config.game+'/').then(function(phaserGame) {
+                    plan.booted = makePhaserGame(module.phaser, config.game, '/v1/student/app/'+config.game+'/',plan).then(function(phaserGame) {
                         entry.phaserGame = phaserGame;
                     });
                     //gamePromises.push(plan.booted); // not sure if this will come in time, might need second level
@@ -78,15 +103,13 @@ Fluent.planTheDay = function(day, plan, options) {
 
     plan.forEach(importGames);
 
-    api.start = function(index) {
-      var entry = plan[index];
-
-      //module.phaser.options.main is name of main to switch to when running
-      if (entry.phaser) {
-          var mainStateName = entry.phaser.options.main,
-              clearGame = true, clearCache = false;
-          entry.phaserGame.state.start(mainStateName, clearGame, clearCache, entry.config)
-      }
+    plan.queue = function(index) {
+        if (index === undefined) {
+            index = currentIndex+1;
+        }
+        currentPlan = plan;
+        currentIndex = index;
+        currentGame = plan[index];
     };
 
     return Promise.all(gamePromises).then(function() {
@@ -100,11 +123,12 @@ Fluent.planTheDay = function(day, plan, options) {
 /**
 @returns Promise of a Phaser Game that has been booted
 */
-function adjustPhaserGame(states, name, url) {
+function makePhaserGame(states, name, url, plan) {
+    states.options = states.options || {};
     return new Promise(function(resolve,reject) {
         //TODO override width, height, renderMode
 
-        var game = new Phaser.Game(400, 960, Phaser.CANVAS, name);
+        var game = new Phaser.Game(400, 960, Phaser.AUTO, name);
 
         function wrapped_init() {
             game.load.baseURL = url;
@@ -139,9 +163,22 @@ function adjustPhaserGame(states, name, url) {
                 }
             }
         }
-
-        if (states.options && states.options.boot) {
-            game.state.start(states.options.boot);
+        if (!states.Ready) {
+            game.state.add('Ready',{
+                create: function() {
+                    console.log('Game %s is paused, ready to continue',name);
+                }
+            });
         }
+        if (!states.Done) {
+            game.state.add('Done',{
+                create: function() {
+                    console.log('Game %s is done, ready for next',name);
+                    plan.queue();
+                }
+            });
+        }
+
+        game.state.start(states.options.boot || 'Boot');
     });
 }

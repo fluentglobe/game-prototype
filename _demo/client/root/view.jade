@@ -7,9 +7,12 @@ block main
     ul
       for plan in plans
         li: a(href="javascript:page('/plan/#{plan.key}')",name="#{plan.key}",rel="game")= plan.title
-
+      li: a(href="javascript:Fluent.startGame();",class="btn btn-start") Start
+      li: a(href="javascript:Fluent.pauseGame();",class="btn btn-pause") Pause
+      li: a(href="javascript:Fluent.nextGame();",class="btn btn-next") Next
     a(href="https://github.com/fluentglobe/game-prototype")
       img(src="/images/logo.png", alt="SocketStream Logo", width=160, height=160)
+            
 
     h1 Fluent Globe Prototypes
     p Collection of game prototypes for the language courses
