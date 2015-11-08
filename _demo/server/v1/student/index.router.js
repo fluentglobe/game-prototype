@@ -1,5 +1,5 @@
 var express = require('express'),
-    ss = require('socketstream'),
+    conventions = require('conventions'),
     settings = require('../../../../settings'),
     debug = require('debug')('game'),
     swig = require('swig'),
@@ -7,7 +7,7 @@ var express = require('express'),
     path = require('path');
 
 var router = module.exports = express.Router(),
-    planTemplate = swig.compileFile(path.join(ss.root,'client/views/plan.js')),
+    planTemplate = swig.compileFile(conventions.absolutePath('client/views/plan.js')),
     today = new Date(),
     day = '' + today.getFullYear() + (today.getMonth()+1) + today.getDate();
 
@@ -39,11 +39,11 @@ settings.vars.plans.forEach(function(plan) {
 settings.games.forEach(function(app) {
     var options = {};
     router.get('/app/'+app.key+'/index.js', function(req,res) {
-        send(req, path.join(ss.root,'..',app.key,'index.js'),options).pipe(res);
+        send(req, conventions.absolutePath('..',app.key,'index.js'),options).pipe(res);
     });
 
     // other files at dev-time
     router.use('/app/'+app.key+'/', function(req,res) {
-        send(req, path.join(ss.root,'..',app.key,req.url.replace('/app/','')),options).pipe(res);
+        send(req, conventions.absolutePath('..',app.key,req.url.replace('/app/','')),options).pipe(res);
     });
 });

@@ -7,7 +7,7 @@ exports.vars = {
     plans: []
 };
 
-exports.root = '_demo';
+exports.root = exports.cwd = path.join(__dirname,'_demo');
 
 exports.client = {
   dirs: {

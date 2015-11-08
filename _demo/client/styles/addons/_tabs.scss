@@ -1,0 +1,32 @@
+riot-tabs {
+  display: block;
+}
+
+.tab {
+  display: inline-block;
+  vertical-align: middle;
+  width: 75px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid;
+  background-color: #FFF;
+  margin-bottom: -1px;
+  margin-right: 5px;
+  &.is-active {
+    border-bottom: none;
+  }
+}
+
+.tabContent {
+  border: 1px solid;
+  padding: 20px;
+}
+
+.tabContent__item {
+  display: none;
+  &.is-active {
+    display: block;
+  }
+}

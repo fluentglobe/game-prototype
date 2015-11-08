@@ -94,3 +94,63 @@ main {
     right: 0; width: 400px;
   }
 }
+
+// temporary tabs etc.
+
+$link-color: #B4EAE6;
+
+// a {
+//   color: $link-color;
+//   cursor: pointer;
+//   text-decoration: none;
+//   border-bottom: 1px dotted;
+// }
+
+iframe {
+  border: none;
+  width: 100%;
+  &.iframe--posts {
+    height: 400px;
+  }
+  &.iframe--tabs {
+    height: 550px;
+  }
+  &.iframe--typeahead {
+    height: 300px;
+  }
+}
+
+.list--bare {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  padding: 75px 0;
+  background-color: #FFF;
+  border-bottom: 10px solid $link-color;
+}
+
+.section--main {
+  @extend .section;
+  background-color: white; //$body-color;
+  color: #FFF;
+  border-bottom: none;
+  h1 {
+    font-size: 3em;
+  }
+}
+
+.layout--constrained {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.is-hidden {
+  display: none;
+}
+
+// @import "posts";
+// @import "tabs";
+// @import "typeahead";
