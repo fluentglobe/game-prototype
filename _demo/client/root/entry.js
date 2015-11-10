@@ -55,6 +55,8 @@ var currentPlan,
 Fluent.startGame = function() {
     //TODO disabled play button
   if (currentGame) {
+      document.body.classList.add('game-started');
+
     //module.phaser.options.main is name of main to switch to when running
     if (currentGame.phaser) {
         var mainStateName = currentGame.phaser.options.main || 'Main',
@@ -69,9 +71,14 @@ Fluent.startGame = function() {
 //TODO when game is completed go to Done/Ready state
 
 Fluent.pauseGame = function() {
-  if (currentGame) {
-    currentGame.paused = !currentGame.paused;
-  }
+    if (currentGame) {
+      if (currentGame.paused) {
+          document.body.classList.remove('game-paused');
+      } else {
+          document.body.classList.add('game-paused');
+      }
+      currentGame.paused = !currentGame.paused;
+    }
 };
 
 Fluent.planTheDay = function(day, plan, options) {
@@ -95,7 +102,7 @@ Fluent.planTheDay = function(day, plan, options) {
 
                 var wrapper = document.createElement('div');
                 wrapper.id = config.game;
-                wrapper.className = 'game-window';
+                wrapper.className = 'game-window game-size';
                 windows.appendChild(wrapper);
 
                 // phaser support (plan.booted is a promise for phaser game booted)
@@ -187,6 +194,7 @@ function makePhaserGame(states, name, url, plan) {
         if (!states.Done) {
             game.state.add('Done',{
                 create: function() {
+                    document.body.classList.remove('game-started');
                     console.log('Game %s is done, ready for next',name);
                     plan.queue();
                 }

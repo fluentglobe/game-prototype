@@ -1,3 +1,11 @@
+a {
+    color: orangered;
+    &:active,&:hover {
+        color: red;
+        border-color: red;
+    }
+}
+
 /* entry */
 body {
     background-color: black;
@@ -8,7 +16,13 @@ main {
 }
 
 .splash-block {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
     padding: 4em;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .on-black {
     color: #bbb;
@@ -18,11 +32,22 @@ main {
     position: absolute;
     text-align: center;
     top: 50%;
+    width: 100%;
+    margin: -4em;
 }
 .game-controls {
     display: none;
     .with-game-controls & {
         display: block;
+    }
+
+    a.btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid orangered;
+        border-radius: 4px;
+        margin: 1em 0;
+        max-width: 15em;
     }
 }
 .overview-only {
@@ -67,48 +92,34 @@ $game-tabs-height: 130px;
 
   .game-controls {
       background-color: white;
-      li a {
+      a.btn {
           display: block;
-          padding: 10px 20px;
-          border: 1px solid lightblue;
-          border-radius: 4px;
-          margin: 1em 0;
       }
   }
 }
 
+.game-area {
 
-.game-windows {
-  position: relative;
-
-  @media (min-width: 401px) {
-    margin-left: .5em;
-    margin-top: 1em;
-  }
-
-  @media(min-width: 801px) {
-    .game-windows { max-width: 401px;}
-  }
-  @media(min-width: 901px) {
-    .game-windows { max-width: 501px;}
-  }
-  @media(min-width: 1001px) {
-    .game-windows { max-width: 601px;}
-  }
-  @media(min-width: 1101px) {
-    .game-windows { max-width: 701px;}
-  }
-  @media(min-width: 1201px) {
-    .game-windows { max-width: 801px;}
-  }
+    @media(min-width: 801px) {
+      max-width: 401px;
+    }
+    @media(min-width: 901px) {
+      max-width: 501px;
+    }
+    @media(min-width: 1001px) {
+      max-width: 601px;
+    }
+    @media(min-width: 1101px) {
+      max-width: 701px;
+    }
+    @media(min-width: 1201px) {
+      max-width: 801px;
+    }
 }
-.game-window {
-    float: left;
-    overflow: hidden;
+
+.game-size {
     width: 320px;
     height: 560px;
-    max-height: 768px;
-
     @media (min-width: 360px) {
       width: 360px;
       height: 640px;
@@ -122,6 +133,24 @@ $game-tabs-height: 130px;
     @media (min-width: 769px) {
         width: 400px;
         height: 768px;
+    }
+}
+
+.game-windows {
+  position: relative;
+
+  @media (min-width: 401px) {
+    margin-left: .5em;
+    margin-top: 1em;
+  }
+
+}
+.game-window {
+    float: left;
+    overflow: hidden;
+    max-height: 768px;
+
+    @media (min-width: 769px) {
         border: 1px solid #eee;
         box-shadow: 2px 2px 10px #ccc;
     }

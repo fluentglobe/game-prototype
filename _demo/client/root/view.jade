@@ -3,7 +3,11 @@ block title
     | Welcome
 
 block main
-    div.overview-only.on-black.splash-block
+    div#orientation
+
+    article.game-windows.game-area
+
+    div.overview-only.on-black.splash-block.game-area
         h1 Fluent Globe Prototypes
         p Collection of game prototypes for the language courses
         p We make prototypes of possible future games in our courses. You are free to play with the source code, but please be aware you may not host them or attempt to otherwise commercialise them. Open Source gives so much, and we have contributed for decades to Open Source. So we keep our prototypes Open Source for others to learn from and comment on.
@@ -15,7 +19,7 @@ block main
           | Internet connect, the plan is loaded ahead of time. Game assets are bundled and
           | sent to the browser ahead of time.
           
-    div.game-controls.on-black.splash-block      
+    div.game-controls.on-black.splash-block.game-area.game-size      
         div.central-progress
             a(href="javascript:Fluent.startGame();",class="btn btn-start") Start
 
@@ -35,9 +39,12 @@ block main
         div.overview-only
             h1 REST API&nbsp;
               a(href="/api/") (Documentation)
-            p Each game will be seeded with a session configuration gotten as part of a
-            p For development the assets are loaded on the fly to allow seeing code changes.
-
-    div#orientation
-  
-    article.game-windows
+            p The plan of the day is loaded from the API server. 
+              | Subsequently the games needed are loaded.  
+            p The games are loaded as an index file that is executed to configure the strates
+              | of the game. 
+            p For development the resources are loaded on the fly to allow seeing code changes.
+            
+            h2 Plans
+            p The tabs represent alternate plans involving the different games. Load a plan by
+              | selecting the relevant tab then start the plan and the first game in it.
