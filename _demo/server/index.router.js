@@ -10,7 +10,13 @@ router.get('/', function(req,res) {
 
 router.get('/config.js',function(req,res) {
     send(req, req.url, {
-        root: path.join(path.join(__dirname,'../..'))
+        root: path.join(__dirname,'../..')
+    }).pipe(res);
+});
+
+router.get('/assets/fonts/ionicons.*', function(req,res) {
+    send(req, req.url, {
+        root: path.join(__dirname,'../../jspm_packages/github/driftyco/ionicons@2.0.1', req.path.substring('/assets/'.length))
     }).pipe(res);
 });
 

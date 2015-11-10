@@ -103,6 +103,7 @@ Fluent.planTheDay = function(day, plan, options) {
                 var wrapper = document.createElement('div');
                 wrapper.id = config.game;
                 wrapper.className = 'game-window game-size';
+                wrapper.innerHTML = '<button class="btn btn-pause ion-more"></button>';
                 windows.appendChild(wrapper);
 
                 // phaser support (plan.booted is a promise for phaser game booted)

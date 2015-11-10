@@ -150,6 +150,14 @@ $game-tabs-height: 130px;
     overflow: hidden;
     max-height: 768px;
 
+    .btn-pause {
+        position: absolute;
+        right: 0;
+        top: 0;
+        border: 0 none;
+        background-color: transparent; 
+    }
+
     @media (min-width: 769px) {
         border: 1px solid #eee;
         box-shadow: 2px 2px 10px #ccc;
