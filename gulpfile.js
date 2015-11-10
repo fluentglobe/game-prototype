@@ -7,7 +7,7 @@ var gulp = require('gulp'),
  //  	uglify = require('gulp-uglify'),
     // cached = require('gulp-cached'),
     // remember = require('gulp-remember'),
-    // concat = require('gulp-concat'),
+    concat = require('gulp-concat'),
     flatten = require('gulp-flatten');
 
 var ss = require('socketstream/gulp');
@@ -20,7 +20,8 @@ ss.client.set({
 gulp.task('riot', function() {
     gulp.src('_demo/client/tagsx/*.tag')
         .pipe(riot({compact:true}))
-        .pipe(gulp.dest('_demo/client/assets/tags.js'));
+        .pipe(concat('tags.js'))
+        .pipe(gulp.dest('_demo/client/assets/'));
 });
 
 gulp.task('default', ['pack-all']);
