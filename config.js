@@ -22,6 +22,7 @@ System.config({
     "babel": "npm:babel-core@5.8.25",
     "babel-runtime": "npm:babel-runtime@5.8.25",
     "core-js": "npm:core-js@1.2.3",
+    "driftyco/ionicons": "github:driftyco/ionicons@2.0.1",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },

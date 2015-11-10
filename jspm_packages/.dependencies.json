@@ -38,5 +38,6 @@
   },
   "github:jspm/nodelibs-util@0.1.0": {
     "util": "npm:util@^0.10.3"
-  }
+  },
+  "github:driftyco/ionicons@2.0.1": {}
 }
