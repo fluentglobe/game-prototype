@@ -1,36 +1,43 @@
 extends /page/layouts/default
 block title
-  | Welcome
+    | Welcome
 
 block main
-  aside.framed-sidebar
-    ul.plan-tabs
-      li.tab: a(href="javascript:page('/')",name="#{overview}") Overview    
-      for plan in plans
-        li.tab: a(href="javascript:page('/plan/#{plan.key}')",name="#{plan.key}",rel="game")= plan.title
-    ul.game-controls
-      li: a(href="javascript:Fluent.startGame();",class="btn btn-start") Start
-      li: a(href="javascript:Fluent.pauseGame();",class="btn btn-pause") Pause
-      li: a(href="javascript:Fluent.nextGame();",class="btn btn-next") Next
-    a(href="https://github.com/fluentglobe/game-prototype")
-      img(src="/images/logo.png", alt="SocketStream Logo", width=160, height=160)
+    div.overview-only.on-black.splash-block
+        h1 Fluent Globe Prototypes
+        p Collection of game prototypes for the language courses
+        p We make prototypes of possible future games in our courses. You are free to play with the source code, but please be aware you may not host them or attempt to otherwise commercialise them. Open Source gives so much, and we have contributed for decades to Open Source. So we keep our prototypes Open Source for others to learn from and comment on.
+        p If you would like to work with us to create learning games you should fork the prototypes and make your own implementation of one of them.
+          | When you are ready make a pull request and make sure we know how to get
+          | in touch with you.
+        p Each game is seeded with a session configuration passed as part of   
+          | lesson plan fetched from the server. As the game potentially runs without an
+          | Internet connect, the plan is loaded ahead of time. Game assets are bundled and
+          | sent to the browser ahead of time.
+          
+    div.game-controls.on-black.splash-block      
+        div.central-progress
+            a(href="javascript:Fluent.startGame();",class="btn btn-start") Start
+
+    aside.framed-sidebar
+        ul.plan-tabs
+            li.tab: a(href="javascript:page('/')",name="#{overview}") Overview    
+            for plan in plans
+                li.tab: a(href="javascript:page('/plan/#{plan.key}')",name="#{plan.key}",rel="game")= plan.title
+        a(href="https://github.com/fluentglobe/game-prototype")
+            img(src="/images/logo.png", alt="SocketStream Logo", width=160, height=160)
             
+        ul.game-controls
+            li: a(href="javascript:Fluent.startGame();",class="btn btn-start") Start
+            li: a(href="javascript:Fluent.pauseGame();",class="btn btn-pause") Pause
+            li: a(href="javascript:Fluent.nextGame();",class="btn btn-next") Next
 
-    h1 Fluent Globe Prototypes
-    p Collection of game prototypes for the language courses
-    p We make prototypes of possible future games in our courses. You are free to play with the source code, but please be aware you may not host them or attempt to otherwise commercialise them. Open Source gives so much, and we have contributed for decades to Open Source. So we keep our prototypes Open Source for others to learn from and comment on.
-    p If you would like to work with us to create learning games you should fork the prototypes and make your own implementation of one of them.
-      | When you are ready make a pull request and make sure we know how to get
-      | in touch with you.
+        div.overview-only
+            h1 REST API&nbsp;
+              a(href="/api/") (Documentation)
+            p Each game will be seeded with a session configuration gotten as part of a
+            p For development the assets are loaded on the fly to allow seeing code changes.
 
-    h1 REST API&nbsp;
-      a(href="/api/") (Documentation)
-    p Each game will be seeded with a session configuration gotten as part of a
-      | lesson plan fetched from the server. As the game potentially runs without an
-      | Internet connect, the plan is loaded ahead of time. Game assets are bundled and
-      | sent to the browser ahead of time.
-    p For development the assets are loaded on the fly to allow seeing code changes.
-
-  div#orientation
+    div#orientation
   
-  article.game-windows
+    article.game-windows

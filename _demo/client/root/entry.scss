@@ -3,22 +3,49 @@ body {
     background-color: black;
 }
 main {
-  min-height: 1000px;
+  min-height: 800px;
   overflow: hidden; // something was sticking above 20px
 }
 
+.splash-block {
+    padding: 4em;
+}
+.on-black {
+    color: #bbb;
+}
+
+.central-progress {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+}
+.game-controls {
+    display: none;
+    .with-game-controls & {
+        display: block;
+    }
+}
+.overview-only {
+    display: none;
+    .with-overview & {
+        display: block;
+    }
+}
+
 $game-tabs-width: 50px;
-$game-tabs-height: 150px;
+$game-tabs-height: 130px;
 
 .framed-sidebar {
     position: relative;
     top: 2px;
+    min-height: 700px;
     background-color: white;
-    padding-right: .5em;
+    padding: 0 .5em;
 
   .plan-tabs {
       display: block;
       position: absolute;
+      font-size: 13px;
       left: 10px - $game-tabs-width; top: 0; bottom: 0;
       width: 32px;
 
@@ -40,14 +67,16 @@ $game-tabs-height: 150px;
 
   .game-controls {
       background-color: white;
-      li {
-        padding: 10px 20px;
-        border: 1px solid lightblue;
-        border-radius: 4px;
-        margin: 2em 0;
+      li a {
+          display: block;
+          padding: 10px 20px;
+          border: 1px solid lightblue;
+          border-radius: 4px;
+          margin: 1em 0;
       }
   }
 }
+
 
 .game-windows {
   position: relative;

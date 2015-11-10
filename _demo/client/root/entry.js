@@ -13,6 +13,11 @@ exports.fetch = function(load, fetch) {
     });
   }
 
+page('/', function() {
+    document.body.classList.remove('with-game-controls');
+    document.body.classList.add('with-overview');
+});
+
 var gameName;
 
 Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), function(el) {
@@ -20,6 +25,8 @@ Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), functio
       url = '/v1/student/plan/'+name+'/index.js';
 
   page('/plan/'+name, function(context) {
+      document.body.classList.add('with-game-controls');
+      document.body.classList.remove('with-overview');
       gameName = name;
       System.import(url);
   });
@@ -27,9 +34,14 @@ Array.prototype.forEach.call(document.querySelectorAll('a[rel="game"]'), functio
 
 // if not root exec the page path
 if (location.pathname !== '/') {
+    document.body.classList.add('with-game-controls');
+    document.body.classList.remove('with-overview');
   gameName = location.pathname;
   var url = '/v1/student'+gameName+'/index.js';
   System.import(url);
+} else {
+    document.body.classList.remove('with-game-controls');
+    document.body.classList.add('with-overview');
 }
 
 var windows = document.querySelector('.game-windows');
