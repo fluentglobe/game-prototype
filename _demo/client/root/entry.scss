@@ -1,14 +1,51 @@
 /* entry */
+body {
+    background-color: black;
+}
 main {
   min-height: 1000px;
+  overflow: hidden; // something was sticking above 20px
 }
+
+$game-tabs-width: 50px;
+$game-tabs-height: 150px;
+
 .framed-sidebar {
-  padding-right: .5em;
-  li {
-    padding: 10px 20px;
-    border: 1px solid lightblue;
-    border-radius: 4px;
-    margin: 2em 0;
+    position: relative;
+    top: 2px;
+    background-color: white;
+    padding-right: .5em;
+
+  .plan-tabs {
+      display: block;
+      position: absolute;
+      left: 10px - $game-tabs-width; top: 0; bottom: 0;
+      width: 32px;
+
+      .tab {
+          width: $game-tabs-width - 10px;
+          height: $game-tabs-height;
+          margin-bottom: 5px;
+          border-color: #aaa;
+          border-width: 1px 0 1px 1px;
+      }
+      .tab a {
+          display: block;
+          width: $game-tabs-height;
+          height: $game-tabs-width - 10px;
+          transform: rotate(-90deg) translateX(-($game-tabs-height));
+          transform-origin: top left;
+      }
+  }
+
+  .game-controls {
+      background-color: white;
+      li {
+        padding: 10px 20px;
+        border: 1px solid lightblue;
+        border-radius: 4px;
+        margin: 2em 0;
+      }
   }
 }
 
@@ -68,7 +105,7 @@ main {
   }
   .framed-sidebar {
     position: absolute;
-    right: 0; left: 330px;
+    right: 0; left: 330px + $game-tabs-width;
   }
 }
 
@@ -81,7 +118,7 @@ main {
   }
   .framed-sidebar {
     position: absolute;
-    right: 0; left: 410px;
+    right: 0; left: 410px + $game-tabs-width;
   }
 }
 
@@ -91,7 +128,7 @@ main {
   }
   .framed-sidebar {
     position: absolute;
-    right: 0; width: 400px;
+    right: 0; width: 400px + $game-tabs-width;
   }
 }
 

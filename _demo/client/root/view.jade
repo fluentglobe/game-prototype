@@ -4,9 +4,11 @@ block title
 
 block main
   aside.framed-sidebar
-    ul
+    ul.plan-tabs
+      li.tab: a(href="javascript:page('/')",name="#{overview}") Overview    
       for plan in plans
-        li: a(href="javascript:page('/plan/#{plan.key}')",name="#{plan.key}",rel="game")= plan.title
+        li.tab: a(href="javascript:page('/plan/#{plan.key}')",name="#{plan.key}",rel="game")= plan.title
+    ul.game-controls
       li: a(href="javascript:Fluent.startGame();",class="btn btn-start") Start
       li: a(href="javascript:Fluent.pauseGame();",class="btn btn-pause") Pause
       li: a(href="javascript:Fluent.nextGame();",class="btn btn-next") Next

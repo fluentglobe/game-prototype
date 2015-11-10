@@ -41,6 +41,7 @@ var currentPlan,
     currentGame;
 
 Fluent.startGame = function() {
+    //TODO disabled play button
   if (currentGame) {
     //module.phaser.options.main is name of main to switch to when running
     if (currentGame.phaser) {
@@ -104,6 +105,7 @@ Fluent.planTheDay = function(day, plan, options) {
     plan.forEach(importGames);
 
     plan.queue = function(index) {
+        //TODO enable play button
         if (index === undefined) {
             index = currentIndex+1;
         }
