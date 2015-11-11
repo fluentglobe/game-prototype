@@ -37,7 +37,10 @@ main {
 }
 .game-controls {
     display: none;
-    .with-game-controls & {
+    .with-game-controls &.framed-sidebar {
+        display: block;
+    }
+    .game-ready &.splash-block {
         display: block;
     }
 
@@ -151,11 +154,17 @@ $game-tabs-height: 130px;
     max-height: 768px;
 
     .btn-pause {
+        font-size: 2em;
+        padding: 8px 16px;
+        background-color: transparent;
+        color: orangered;
+    }
+
+    .btn-pause {
         position: absolute;
         right: 0;
         top: 0;
         border: 0 none;
-        background-color: transparent; 
     }
 
     @media (min-width: 769px) {

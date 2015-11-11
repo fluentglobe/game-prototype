@@ -55,7 +55,7 @@ var currentPlan,
 Fluent.startGame = function() {
     //TODO disabled play button
   if (currentGame) {
-      document.body.classList.add('game-started');
+      document.body.classList.remove('game-ready');
 
     //module.phaser.options.main is name of main to switch to when running
     if (currentGame.phaser) {
@@ -103,7 +103,7 @@ Fluent.planTheDay = function(day, plan, options) {
                 var wrapper = document.createElement('div');
                 wrapper.id = config.game;
                 wrapper.className = 'game-window game-size';
-                wrapper.innerHTML = '<button class="btn btn-pause ion-more"></button>';
+                wrapper.innerHTML = '<button class="btn btn-pause ion-more" href="javascript:Fluent.pauseGame();"></button>';
                 windows.appendChild(wrapper);
 
                 // phaser support (plan.booted is a promise for phaser game booted)
@@ -111,6 +111,7 @@ Fluent.planTheDay = function(day, plan, options) {
                     entry.phaser = module.phaser;
                     plan.booted = makePhaserGame(module.phaser, config.game, '/v1/student/app/'+config.game+'/',plan).then(function(phaserGame) {
                         entry.phaserGame = phaserGame;
+                        document.body.classList.add('game-ready');
                     });
                     //gamePromises.push(plan.booted); // not sure if this will come in time, might need second level
                     return plan.booted; // should chain promise
@@ -188,6 +189,7 @@ function makePhaserGame(states, name, url, plan) {
         if (!states.Ready) {
             game.state.add('Ready',{
                 create: function() {
+                    document.body.classList.add('game-ready');
                     console.log('Game %s is paused, ready to continue',name);
                 }
             });
@@ -195,7 +197,7 @@ function makePhaserGame(states, name, url, plan) {
         if (!states.Done) {
             game.state.add('Done',{
                 create: function() {
-                    document.body.classList.remove('game-started');
+                    document.body.classList.add('game-ready');
                     console.log('Game %s is done, ready for next',name);
                     plan.queue();
                 }
