@@ -194,7 +194,12 @@ function makePhaserGame(states, name, url, plan) {
             }
         }
 
-
+        if (!states.Ready) {
+            game.state.add('Ready',{});
+        }
+        if (!states.Done) {
+            game.state.add('Done',{});
+        }
         game.state.start(states.options.boot || 'Boot');
     });
 }
