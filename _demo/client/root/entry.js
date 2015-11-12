@@ -153,56 +153,47 @@ function makePhaserGame(states, name, url, plan) {
 
         var game = new Phaser.Game(400, 960, Phaser.AUTO, name);
 
-        function wrapped_init() {
-            game.load.baseURL = url;
-            if (typeof this.old_init === 'function') {
-                this.old_init.apply(this,arguments);
+        game.state.onStateChange.add(function(stateName) {
+            console.info('on state change: %s',stateName);
+            switch(stateName) {
+                case "Ready":
+                    document.body.classList.add('game-ready');
+                    console.log('Game %s is paused, ready to continue',name);
+                    break;
+                case "Done":
+                    document.body.classList.add('game-ready');
+                    console.log('Game %s is done, ready for next',name);
+                    plan.queue();
+                    break;
+                case "Boot":
+                    game.load.baseURL = url;
+                    break;
+                default:
+                    console.log('state changed to %s for',stateName,arguments,game);
+                    break;
             }
-        }
+        },game);
 
-        function wrapped_create() {
-            states.options.created = true;
-            resolve(game);
-            if (typeof this.old_create === 'function') {
-                this.old_create.apply(this,arguments);
+        game.state.postCreateCallback = function() {
+            switch(game.state.current) {
+                case "Boot":
+                    resolve(game);
+                    game.state.start('Ready');
+                    break;
             }
-        }
+        };
 
         for(var n in states) {
             var state = states[n];
 
             if (typeof state === 'function') {
-                if (!state.prototype.old_init) {
-                    state.prototype.old_init = state.prototype.init || true;
-                    state.prototype.init = wrapped_init;
-                }
-                if (!state.prototype.old_create) {
-                    state.prototype.old_create = state.prototype.create || true;
-                    state.prototype.create = wrapped_create;
-                }
                 var n0 = n.charAt(0);
                 if (n0.toUpperCase() === n0 && n0.toLowerCase() !== n0) {
                     game.state.add(n, state);
                 }
             }
         }
-        if (!states.Ready) {
-            game.state.add('Ready',{
-                create: function() {
-                    document.body.classList.add('game-ready');
-                    console.log('Game %s is paused, ready to continue',name);
-                }
-            });
-        }
-        if (!states.Done) {
-            game.state.add('Done',{
-                create: function() {
-                    document.body.classList.add('game-ready');
-                    console.log('Game %s is done, ready for next',name);
-                    plan.queue();
-                }
-            });
-        }
+
 
         game.state.start(states.options.boot || 'Boot');
     });
