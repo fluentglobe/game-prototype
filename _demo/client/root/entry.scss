@@ -149,6 +149,7 @@ $game-tabs-height: 130px;
 
 }
 .game-window {
+    position: relative;
     float: left;
     overflow: hidden;
     max-height: 768px;
