@@ -24,9 +24,17 @@ gulp.task('riot', function() {
         .pipe(gulp.dest('_demo/client/assets/'));
 });
 
+gulp.task('reload-client', function() {
+    ss.http.cached.loadStatic();
+    ss.http.cached.loadAssets();
+    // ss.
+    ss.api.bundler.updateCachedOndemandAssets();
+});
+
 gulp.task('default', ['pack-all']);
-gulp.task('live', ['live-assets','live-reload','serve','watch']);
+gulp.task('live', ['live-assets',/*'live-reload',*/'serve','watch']);
 
 gulp.task('watch', function() {
     gulp.watch('_demo/client/tags/*.tag', ['riot']);
+    gulp.watch('_demo/client',['reload-client']);
 });
